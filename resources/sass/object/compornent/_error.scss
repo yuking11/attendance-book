@@ -1,0 +1,31 @@
+//=====================================================
+//
+// Error Style
+//
+// =====================================================
+
+// error - default
+// ================================== //
+.c-errors {
+
+  margin: 0 0 ($ct_gutter * 1);
+  padding: $ct_gutter;
+  border: 1px solid $color_red;
+  color: $color_red;
+  font-size: fs(14);
+  font-weight: bold;
+
+  .c-errors_list {
+    list-style: disc;
+    padding-left: 1rem;
+  }// .c-errors_list
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-errors

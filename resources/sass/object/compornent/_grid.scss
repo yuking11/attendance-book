@@ -1,0 +1,107 @@
+//=====================================================
+//
+// grid Style
+//
+// =====================================================
+
+.c-row {
+
+  width: calc(100% + #{$ct_gutter});
+  display: flex;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+  margin-right: -($ct_gutter_half);
+  margin-left: -($ct_gutter_half);
+
+  &.c-row-start {
+    justify-content: flex-start;
+  }// &.c-row-start
+  &.c-row-end {
+    justify-content: flex-end;
+  }// &.c-row-end
+  &.c-row-center {
+    justify-content: center;
+  }// &.c-row-center
+  &.c-row-between {
+    justify-content: space-between;
+  }// &.c-row-between
+
+  &.c-row-vertical-start {
+    align-items: flex-start;
+  }// &.c-row-vertical-start
+  &.c-row-vertical-end {
+    align-items: flex-end;
+  }// &.c-row-vertical-end
+  &.c-row-vertical-center {
+    align-items: center;
+  }// &.c-row-vertical-center
+  &.c-row-vertical-between {
+    align-items: space-between;
+  }// &.c-row-vertical-between
+
+  &[class*="c-row-"] {
+    .c-col {
+      flex: inherit;
+    }// .c-col
+  }// &[class*="row-"]
+
+  .c-col {
+    flex-grow: 1;
+    margin: $ct_gutter_half;
+    @for $i from 1 through $columns {
+      &-#{$i} {
+        flex-basis: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        max-width: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        margin: $ct_gutter_half;
+      }// &-#{$i}
+    }// @for
+    &-debug {
+      background-color: #CCC;
+    }// &-debug
+  }// .c-col
+
+  @include mq(sp, max, true) {
+
+    @for $i from 1 through $columns {
+      .c-col-sm-#{$i} {
+        flex-basis: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        max-width: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        margin: $ct_gutter_half;
+      }// .c-col-sm-#{$i}
+    }// @for
+
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+
+    @for $i from 1 through $columns {
+      .c-col-md-#{$i} {
+        flex-basis: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        max-width: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        margin: $ct_gutter_half;
+      }// .c-col-md-#{$i}
+    }// @for
+
+  }// @include mq(tab)
+  @include mq(pc) {
+
+    @for $i from 1 through $columns {
+      .c-col-lg-#{$i} {
+        flex-basis: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        max-width: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        margin: $ct_gutter_half;
+      }// .c-col-lg-#{$i}
+    }// @for
+
+  }// @include mq(pc)
+  @include mq(wide) {
+
+    @for $i from 1 through $columns {
+      .c-col-xl-#{$i} {
+        flex-basis: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        max-width: calc((100% / #{$columns}) * #{$i} - #{$ct_gutter_half} * 2);
+        margin: $ct_gutter_half;
+      }// .c-col-xl-#{$i}
+    }// @for
+
+  }// @include mq(wide)
+}// .c-row

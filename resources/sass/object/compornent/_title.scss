@@ -1,0 +1,46 @@
+//=====================================================
+//
+// Title Style
+//
+// =====================================================
+
+// Primary
+// ================================== //
+.c-ttl-primary {
+  @include mq(sp, max, true) {
+    font-size: fs(18);
+    margin-bottom: $ct_gutter;
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+    font-size: fs(20);
+    margin-bottom: $ct_gutter * 1.5;
+  }// @include mq(tab)
+  @include mq(pc) {
+    font-size: fs(24);
+    margin-bottom: $ct_gutter * 2;
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-ttl-primary
+
+// Secondary
+// ================================== //
+.c-ttl-secondary {
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-ttl-secondary
+
+// Tertiary
+// ================================== //
+.c-ttl-tertiary {
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-ttl-tertiary

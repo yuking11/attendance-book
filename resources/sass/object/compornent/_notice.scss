@@ -1,0 +1,33 @@
+//=====================================================
+//
+// Notice Style
+//
+// =====================================================
+
+// notice - default
+// ================================== //
+.c-notice {
+
+  margin: ($ct_gutter * 2) 0;
+  padding: $ct_gutter;
+  border: 1px solid $color_dark;
+  color: $color_dark;
+  font-size: fs(14);
+
+  &_item {
+    padding-left: 1em;
+    text-indent: -1em;
+    &::before {
+      content: "※";
+    }// &::before;
+  }// &_item
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-notice

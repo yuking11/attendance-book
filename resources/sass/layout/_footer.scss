@@ -1,0 +1,35 @@
+// =====================================================
+//
+// Footer Style
+//
+// =====================================================
+
+// footer
+// ================================== //
+.l-footer {
+
+  background-color: $color_white;
+  margin-top: $ct_gutter * 2;
+  padding-right: $ct_gutter * 2;
+  padding-left: $ct_gutter * 2;
+  text-align: center;
+
+  .copy {
+    margin: ($ct_gutter * 2) 0;
+  }// .copy
+
+  @include mq(sp, max, true) {
+
+    padding-right: $ct_gutter;
+    padding-left: $ct_gutter;
+
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+    margin-top: $ct_gutter * 4;
+  }// @include mq(tab)
+  @include mq(pc) {
+    margin-top: $ct_gutter * 6;
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .l-footer
