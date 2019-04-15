@@ -79,7 +79,7 @@ class MemberController extends Controller
         try {
             foreach ($requests as $item) {
                 unset($item['laravel_through_key']);
-                $data = Member::user()->find($item['id']);
+                $data = Auth::user()->members()->find($item['id']);
                 $data->fill($item)->save();
             }
             DB::commit();
@@ -98,7 +98,7 @@ class MemberController extends Controller
     }
 
     /**
-     * メンバーー削除
+     * メンバー削除
      * @param DeleteMember $request
      * @return \Illuminate\Http\Response
      */
@@ -107,10 +107,10 @@ class MemberController extends Controller
         DB::beginTransaction();
 
         try {
-            $data = Member::user()->find($request->id);
+            $data = Auth::user()->members()->find($request->id);
 
             if (! $data) {
-                abort(404);
+                abort(404, 'メンバーが見つかりませんでした。');
             }
 
             $data->delete();

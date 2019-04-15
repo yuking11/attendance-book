@@ -18,12 +18,4 @@ class Category extends Model
     {
         return $this->hasMany('App\Member');
     }
-
-    /**
-     * Scope Auth User
-     */
-    public function scopeUser($query)
-    {
-        return $query->where('user_id', '=', Auth::user()->id);
-    }
 }

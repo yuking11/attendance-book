@@ -16,7 +16,7 @@ class Member extends Model
      */
     public function categories()
     {
-        return $this->hasMany('App\Category');
+        return $this->belongsTo('App\Category');
     }
 
     /**
@@ -26,21 +26,5 @@ class Member extends Model
     public function status()
     {
         return $this->hasMany('App\State');
-    }
-
-    /**
-     * Scope Auth User
-     */
-    public function scopeUser($query)
-    {
-        return $query->where('user_id', '=', Auth::user()->id);
-    }
-
-    /**
-     * Scope Current Category
-     */
-    public function scopeCurrentCategory($query, $id)
-    {
-        return $query->where('category_id', '=', $id);
     }
 }

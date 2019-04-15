@@ -71,7 +71,7 @@ class CategoryController extends Controller
 
         try {
             foreach ($requests as $item) {
-                $data = Category::user()->find($item['id']);
+                $data = Auth::user()->categories()->find($item['id']);
                 $data->fill($item)->save();
             }
             DB::commit();
@@ -93,7 +93,7 @@ class CategoryController extends Controller
      */
     public function delete(DeleteCategory $request)
     {
-        $count = Member::currentCategory($request->id)->count();
+        $count = Category::find($request->id)->members()->count();
         if ($count) {
           abort(409, 'メンバーが'.$count.'名存在します。該当メンバーを別のカテゴリに移動してください。');
         }
@@ -101,10 +101,10 @@ class CategoryController extends Controller
         DB::beginTransaction();
 
         try {
-            $data = Category::user()->find($request->id);
+            $data = Auth::user()->categories()->find($request->id);
 
             if (! $data) {
-                abort(404);
+                abort(404, 'カテゴリが見つかりませんでした。');
             }
 
             $data->delete();

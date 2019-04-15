@@ -47,20 +47,20 @@ class User extends Authenticatable
     }
 
     /**
-     * リレーションシップ - categories->membersテーブル
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function memberWithCategory()
-    {
-        return $this->hasManyThrough('App\Member', 'App\Category');
-    }
-
-    /**
      * リレーションシップ - membersテーブル
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function members()
     {
         return $this->hasMany('App\Member');
+    }
+
+    /**
+     * リレーションシップ - categories->membersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function memberWithCategory()
+    {
+        return $this->hasManyThrough('App\Member', 'App\Category');
     }
 }
