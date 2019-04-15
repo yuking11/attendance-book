@@ -3455,6 +3455,78 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
@@ -3476,7 +3548,7 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
       var _fetchCalendars = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response, TODAY, count;
+        var RESPONSE, TODAY, count;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -3485,19 +3557,20 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
                 return axios.get('/api/index');
 
               case 2:
-                response = _context.sent;
+                RESPONSE = _context.sent;
+                console.log(RESPONSE);
 
-                if (!(response.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                  _context.next = 6;
+                if (!(RESPONSE.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context.next = 7;
                   break;
                 }
 
-                this.$store.commit('error/setCode', response.status);
+                this.$store.commit('error/setCode', RESPONSE.status);
                 return _context.abrupt("return", false);
 
-              case 6:
-                this.calendars = response.data['calendar'];
-                this.days = response.data['days'];
+              case 7:
+                this.calendars = RESPONSE.data['calendar'];
+                this.days = RESPONSE.data['days'];
                 this.monthly = {
                   '4月': 30,
                   '5月': 31,
@@ -3521,7 +3594,7 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
                 count = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.calendars[0].date).diff(TODAY, 'days');
                 this.$refs.books_container.scrollLeft = 32 * -count;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -26979,98 +27052,181 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", { staticClass: "ttl--main" }, [_vm._v("2019年度")]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        ref: "books_container",
-        staticClass: "books_wrap",
-        attrs: { id: "books_container" }
-      },
-      [
-        _c("div", { attrs: { id: "books", "data-days": _vm.days } }, [
-          _c("div", { staticClass: "books_head" }, [
-            _vm._m(0),
+  return _c("div", { staticClass: "l-content" }, [
+    _c("div", { staticClass: "l-inner" }, [
+      _c("h1", { staticClass: "c-ttl-primary u-tac" }, [_vm._v("2019年度")]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          ref: "books_container",
+          staticClass: "c-books_wrap",
+          attrs: { id: "c-books_container" }
+        },
+        [
+          _c("div", { attrs: { id: "c-books", "data-days": _vm.days } }, [
+            _c("div", { staticClass: "c-books_head" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "head_date" }, [
+                _c(
+                  "div",
+                  { staticClass: "date_monthly" },
+                  _vm._l(_vm.monthly, function(value, key, index) {
+                    return _c(
+                      "div",
+                      {
+                        key: index,
+                        staticClass: "month",
+                        attrs: { "data-count": value }
+                      },
+                      [_c("span", [_vm._v(_vm._s(key))])]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "date_days" },
+                  _vm._l(_vm.calendars, function(calendar, index) {
+                    return _c(
+                      "div",
+                      {
+                        staticClass: "day",
+                        class: _vm.classWeekday(calendar.date)
+                      },
+                      [
+                        _c("div", [
+                          _vm._v(_vm._s(_vm._f("days")(calendar.date)))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _vm._v(_vm._s(_vm._f("weekdays")(calendar.date)))
+                        ])
+                      ]
+                    )
+                  }),
+                  0
+                )
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _c("div", { staticClass: "head_date" }, [
-              _c(
-                "div",
-                { staticClass: "date_monthly" },
-                _vm._l(_vm.monthly, function(value, key, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: index,
-                      staticClass: "month",
-                      attrs: { "data-count": value }
-                    },
-                    [_c("span", [_vm._v(_vm._s(key))])]
-                  )
-                }),
-                0
-              ),
+            _c("div", { staticClass: "c-books_body" }, [
+              _c("div", { staticClass: "body_line" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "body_days c-form" },
+                  [
+                    _vm._l(_vm.calendars, function(calendar) {
+                      return [
+                        _c(
+                          "div",
+                          {
+                            key: calendar.id,
+                            staticClass: "body_cell",
+                            class: _vm.classWeekday(calendar.date)
+                          },
+                          [_vm._m(4, true)]
+                        )
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "date_days" },
-                _vm._l(_vm.calendars, function(calendar, index) {
-                  return _c(
-                    "div",
-                    {
-                      staticClass: "day",
-                      class: _vm.classWeekday(calendar.date)
-                    },
-                    [
-                      _c("div", [
-                        _vm._v(_vm._s(_vm._f("days")(calendar.date)))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", [
-                        _vm._v(_vm._s(_vm._f("weekdays")(calendar.date)))
-                      ])
-                    ]
-                  )
-                }),
-                0
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "books_body" }, [
-            _c("div", { staticClass: "body_line" }, [
-              _vm._m(2),
+              _c("div", { staticClass: "body_line" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "body_days c-form" },
+                  [
+                    _vm._l(_vm.calendars, function(calendar) {
+                      return [
+                        _c(
+                          "div",
+                          {
+                            key: calendar.id,
+                            staticClass: "body_cell",
+                            class: _vm.classWeekday(calendar.date)
+                          },
+                          [_vm._m(7, true)]
+                        )
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ]),
               _vm._v(" "),
-              _vm._m(3),
+              _c("div", { staticClass: "body_line" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _vm._m(9),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "body_days c-form" },
+                  [
+                    _vm._l(_vm.calendars, function(calendar) {
+                      return [
+                        _c(
+                          "div",
+                          {
+                            key: calendar.id,
+                            staticClass: "body_cell",
+                            class: _vm.classWeekday(calendar.date)
+                          },
+                          [_vm._m(10, true)]
+                        )
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "body_days" },
-                [
-                  _vm._l(_vm.calendars, function(calendar) {
-                    return [
-                      _c(
-                        "div",
-                        {
-                          key: calendar.id,
-                          staticClass: "body_cell",
-                          class: _vm.classWeekday(calendar.date)
-                        },
-                        [_vm._m(4, true)]
-                      )
-                    ]
-                  })
-                ],
-                2
-              )
+              _c("div", { staticClass: "body_line" }, [
+                _vm._m(11),
+                _vm._v(" "),
+                _vm._m(12),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "body_days c-form" },
+                  [
+                    _vm._l(_vm.calendars, function(calendar) {
+                      return [
+                        _c(
+                          "div",
+                          {
+                            key: calendar.id,
+                            staticClass: "body_cell",
+                            class: _vm.classWeekday(calendar.date)
+                          },
+                          [_vm._m(13, true)]
+                        )
+                      ]
+                    })
+                  ],
+                  2
+                )
+              ])
             ])
           ])
-        ])
-      ]
-    )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -27110,10 +27266,88 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", [
-      _c("label", { attrs: { for: "" } }, [
-        _c("input", { attrs: { type: "checkbox", value: "1" } })
-      ])
+    return _c("label", { staticClass: "c-form_label-check" }, [
+      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
+      _vm._v(" "),
+      _c("span")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_name" }, [
+      _c("span", [_vm._v("山田　太郎")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_count" }, [
+      _c("span", [_vm._v("10")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "c-form_label-check" }, [
+      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
+      _vm._v(" "),
+      _c("span")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_name" }, [
+      _c("span", [_vm._v("山田　太郎")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_count" }, [
+      _c("span", [_vm._v("10")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "c-form_label-check" }, [
+      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
+      _vm._v(" "),
+      _c("span")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_name" }, [
+      _c("span", [_vm._v("山田　太郎")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "body_count" }, [
+      _c("span", [_vm._v("10")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "c-form_label-check" }, [
+      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
+      _vm._v(" "),
+      _c("span")
     ])
   }
 ]

@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <h1 class="ttl--main">2019年度</h1>
-    <div id="books_container" ref="books_container" class="books_wrap">
-      <div id="books" :data-days="days">
-        <div class="books_head">
+  <div class="l-content">
+    <div class="l-inner">
+
+      <h1 class="c-ttl-primary u-tac">2019年度</h1>
+
+    <div id="c-books_container" ref="books_container" class="c-books_wrap">
+      <div id="c-books" :data-days="days">
+        <div class="c-books_head">
           <div class="head_ttl"><span>名前</span></div>
           <div class="head_count"><span>出席数</span></div>
           <div class="head_date">
@@ -27,11 +30,11 @@
             </div>
           </div>
         </div>
-        <div class="books_body">
+        <div class="c-books_body">
           <div class="body_line">
             <div class="body_name"><span>山田　太郎</span></div>
             <div class="body_count"><span>10</span></div>
-            <div class="body_days">
+            <div class="body_days c-form">
               <template
                 v-for="calendar in calendars"
               >
@@ -40,13 +43,82 @@
                   v-bind:class="classWeekday(calendar.date)"
                   :key="calendar.id"
                 >
-                  <span><label for=""><input type="checkbox" value="1"></label></span>
+                  <label class="c-form_label-check">
+                    <input type="checkbox" name="check[]" value="1">
+                    <span></span>
+                  </label>
+                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="body_line">
+            <div class="body_name"><span>山田　太郎</span></div>
+            <div class="body_count"><span>10</span></div>
+            <div class="body_days c-form">
+              <template
+                v-for="calendar in calendars"
+              >
+                <div
+                  class="body_cell"
+                  v-bind:class="classWeekday(calendar.date)"
+                  :key="calendar.id"
+                >
+                  <label class="c-form_label-check">
+                    <input type="checkbox" name="check[]" value="1">
+                    <span></span>
+                  </label>
+                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="body_line">
+            <div class="body_name"><span>山田　太郎</span></div>
+            <div class="body_count"><span>10</span></div>
+            <div class="body_days c-form">
+              <template
+                v-for="calendar in calendars"
+              >
+                <div
+                  class="body_cell"
+                  v-bind:class="classWeekday(calendar.date)"
+                  :key="calendar.id"
+                >
+                  <label class="c-form_label-check">
+                    <input type="checkbox" name="check[]" value="1">
+                    <span></span>
+                  </label>
+                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="body_line">
+            <div class="body_name"><span>山田　太郎</span></div>
+            <div class="body_count"><span>10</span></div>
+            <div class="body_days c-form">
+              <template
+                v-for="calendar in calendars"
+              >
+                <div
+                  class="body_cell"
+                  v-bind:class="classWeekday(calendar.date)"
+                  :key="calendar.id"
+                >
+                  <label class="c-form_label-check">
+                    <input type="checkbox" name="check[]" value="1">
+                    <span></span>
+                  </label>
+                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
                 </div>
               </template>
             </div>
           </div>
         </div>
       </div>
+    </div>
+
     </div>
   </div>
 </template>
@@ -74,14 +146,14 @@ export default {
   },
   methods: {
     async fetchCalendars () {
-      const response = await axios.get('/api/index')
-
-      if (response.status !== OK) {
-        this.$store.commit('error/setCode', response.status)
+      const RESPONSE = await axios.get('/api/index')
+console.log(RESPONSE);
+      if (RESPONSE.status !== OK) {
+        this.$store.commit('error/setCode', RESPONSE.status)
         return false
       }
-      this.calendars = response.data['calendar']
-      this.days = response.data['days']
+      this.calendars = RESPONSE.data['calendar']
+      this.days = RESPONSE.data['days']
       this.monthly = {
         '4月': 30,
         '5月': 31,

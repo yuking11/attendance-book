@@ -100,6 +100,8 @@
   .c-form_label-radio,
   .c-form_label-check {
     display: block;
+    width: 1.375rem;
+    height: 1.375rem;
     line-height: 1.375;
     &:hover {
       span {
@@ -136,7 +138,7 @@
       display: block;
       padding-left: 1.5rem;
       transition: all .35s;
-      line-height: 1.125;
+      line-height: 1.375;
       &::before, &::after {
         content: "";
         position: absolute;
@@ -146,8 +148,9 @@
       }// &::before, &::after
       &::before {
         left: 0;
-        width: 1.125rem;
-        height: 1.125rem;
+        background-color: $color_white;
+        width: 1.375rem;
+        height: 1.375rem;
         border: 1px solid $ui_input_bdr_color;
       }// &::before;
       &::after {
@@ -171,9 +174,9 @@
       &::after {
         display: none;
         top: 3px;
-        left: 2px;
-        width: .875rem;
-        height: .5rem;
+        left: 3px;
+        width: 1rem;
+        height: .675rem;
         border-bottom: 4px solid #FFF;
         border-left: 4px solid #FFF;
         transform: rotate(-55deg);

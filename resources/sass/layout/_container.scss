@@ -80,13 +80,6 @@
   padding-right: $ct_gutter * 2;
   padding-left: $ct_gutter * 2;
 
-  .l-inner {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }// .l-inner
-
   @include mq(sp, max, true) {
 
     padding-right: $ct_gutter;

@@ -1,0 +1,177 @@
+//=====================================================
+//
+// Books Style
+//
+// =====================================================
+
+// books - variable
+// ================================== //
+$gutter: .5rem;
+$name_width: 8rem;
+$count_width: 4rem;
+$cell_width: 2rem;
+$name_color: #DDD;
+$count_color: #DDD;
+$border_color: #999;
+
+
+// books - sticky table
+// ================================== //
+.c-books_wrap {
+  overflow: scroll;
+  background-color: #FFF;
+  width: 100%;
+  max-height: 50vh;
+  margin: 0 auto;
+  border: 1px solid $border_color;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  font-size: .875rem;
+  line-height: 1.2;
+  #c-books {
+    display: block;
+    position: relative;
+    width: $name_width + $count_width + ($cell_width * 365);
+    &[data-days="366"] {
+      width: $name_width + $count_width + ($cell_width * 366);
+    }// &[data-days="366"]
+  }// .c-books
+
+  .c-books_head {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    display: flex;
+    background-color: #FFF;
+    border-bottom: 1px solid $border_color;
+    font-weight: bold;
+  }// .c-books_head
+  .head_ttl,
+  .head_count {
+    position: sticky;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid $border_color;
+  }// .head_ttl
+  .head_ttl {
+    left: 0;
+    background-color: $name_color;
+    width: $name_width;
+    span {
+      padding: 0 $gutter;
+    }// span
+  }// .head_ttl
+  .head_count {
+    left: $name_width;
+    justify-content: center;
+    background-color: $count_color;
+    width: $count_width;
+  }// .head_count
+  .head_date {
+  }// .head_date
+
+  .date_monthly {
+    display: flex;
+    border-bottom: 1px solid $border_color;
+  }// .date_monthly
+  .month {
+    position: relative;
+    height: 1.75em;
+    font-size: 1rem;
+    line-height: 1.75;
+    span {
+      position: sticky;
+      left: $name_width + $count_width;
+      padding: 0 $gutter;
+    }// span
+    &:not(:last-child) {
+      border-right: 1px solid $border_color;
+    }// &:not(:last-child)
+    &[data-count="28"] {
+      width: $cell_width * 28;
+    }// &[data-count="28"]
+    &[data-count="29"] {
+      width: $cell_width * 29;
+    }// &[data-count="29"]
+    &[data-count="30"] {
+      width: $cell_width * 30;
+    }// &[data-count="30"]
+    &[data-count="31"] {
+      width: $cell_width * 31;
+    }// &[data-count="31"]
+  }// .month
+  .date_days {
+    display: flex;
+  }// .date_days
+  .day {
+    display: flex;
+    flex-direction: column;
+    width: $cell_width;
+    text-align: center;
+    &:not(:last-child) {
+      border-right: 1px solid $border_color;
+    }// &:not(:last-child)
+    > div {
+      height: 1.5em;
+      line-height: 1.5;
+      &:first-child {
+        border-bottom: 1px solid $border_color;
+      }// &:first-child
+    }// > div
+  }// .day
+
+  .c-books_body {
+  }// .c-books_body
+  .body_line {
+    display: flex;
+    &:not(:last-child) {
+      border-bottom: 1px solid $border_color;
+    }// &:not(:last-child)
+  }// .body_line
+  .body_name,
+  .body_count {
+    position: sticky;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    background-color: #FFF;
+    border-right: 1px solid $border_color;
+    span {
+      padding: $gutter;
+    }// span
+  }// .body_name,.body_count
+  .body_name {
+    width: $name_width;
+    left: 0;
+  }// .body_name
+  .body_count {
+    left: $name_width;
+    justify-content: center;
+    width: $count_width;
+    text-align: center;
+  }// .body_count
+  .body_days {
+    display: flex;;
+  }// .body_days
+  .body_cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $cell_width;
+    &:not(:last-child) {
+      border-right: 1px solid $border_color;
+    }// &:not(:last-child)
+  }// .body_cell
+
+  .saturday {
+    background-color: #DEF;
+  }// .saturday
+  .sunday {
+    background-color: #FDD;
+  }// .sunday
+  .today {
+    background-color: #FFB !important;
+  }// .today
+}// .c-books_wrap

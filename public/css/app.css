@@ -570,13 +570,6 @@ code {
   padding-left: 2rem;
 }
 
-.l-content .l-inner {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
 @media print, screen and (max-width: 699px) {
   .l-content {
     padding-right: 1rem;
@@ -1998,6 +1991,194 @@ code {
   }
 }
 
+.c-books_wrap {
+  overflow: scroll;
+  background-color: #FFF;
+  width: 100%;
+  max-height: 50vh;
+  margin: 0 auto;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.c-books_wrap #c-books {
+  display: block;
+  position: relative;
+  width: 742rem;
+}
+
+.c-books_wrap #c-books[data-days="366"] {
+  width: 744rem;
+}
+
+.c-books_wrap .c-books_head {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  display: flex;
+  background-color: #FFF;
+  border-bottom: 1px solid #999;
+  font-weight: bold;
+}
+
+.c-books_wrap .head_ttl,
+.c-books_wrap .head_count {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #999;
+}
+
+.c-books_wrap .head_ttl {
+  left: 0;
+  background-color: #DDD;
+  width: 8rem;
+}
+
+.c-books_wrap .head_ttl span {
+  padding: 0 0.5rem;
+}
+
+.c-books_wrap .head_count {
+  left: 8rem;
+  justify-content: center;
+  background-color: #DDD;
+  width: 4rem;
+}
+
+.c-books_wrap .date_monthly {
+  display: flex;
+  border-bottom: 1px solid #999;
+}
+
+.c-books_wrap .month {
+  position: relative;
+  height: 1.75em;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.c-books_wrap .month span {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 12rem;
+  padding: 0 0.5rem;
+}
+
+.c-books_wrap .month:not(:last-child) {
+  border-right: 1px solid #999;
+}
+
+.c-books_wrap .month[data-count="28"] {
+  width: 56rem;
+}
+
+.c-books_wrap .month[data-count="29"] {
+  width: 58rem;
+}
+
+.c-books_wrap .month[data-count="30"] {
+  width: 60rem;
+}
+
+.c-books_wrap .month[data-count="31"] {
+  width: 62rem;
+}
+
+.c-books_wrap .date_days {
+  display: flex;
+}
+
+.c-books_wrap .day {
+  display: flex;
+  flex-direction: column;
+  width: 2rem;
+  text-align: center;
+}
+
+.c-books_wrap .day:not(:last-child) {
+  border-right: 1px solid #999;
+}
+
+.c-books_wrap .day > div {
+  height: 1.5em;
+  line-height: 1.5;
+}
+
+.c-books_wrap .day > div:first-child {
+  border-bottom: 1px solid #999;
+}
+
+.c-books_wrap .body_line {
+  display: flex;
+}
+
+.c-books_wrap .body_line:not(:last-child) {
+  border-bottom: 1px solid #999;
+}
+
+.c-books_wrap .body_name,
+.c-books_wrap .body_count {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  background-color: #FFF;
+  border-right: 1px solid #999;
+}
+
+.c-books_wrap .body_name span,
+.c-books_wrap .body_count span {
+  padding: 0.5rem;
+}
+
+.c-books_wrap .body_name {
+  width: 8rem;
+  left: 0;
+}
+
+.c-books_wrap .body_count {
+  left: 8rem;
+  justify-content: center;
+  width: 4rem;
+  text-align: center;
+}
+
+.c-books_wrap .body_days {
+  display: flex;
+}
+
+.c-books_wrap .body_cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+}
+
+.c-books_wrap .body_cell:not(:last-child) {
+  border-right: 1px solid #999;
+}
+
+.c-books_wrap .saturday {
+  background-color: #DEF;
+}
+
+.c-books_wrap .sunday {
+  background-color: #FDD;
+}
+
+.c-books_wrap .today {
+  background-color: #FFB !important;
+}
+
 .c-errors {
   margin: 0 0 1rem;
   padding: 1rem;
@@ -2138,6 +2319,8 @@ code {
 .c-form .c-form_label-radio,
 .c-form .c-form_label-check {
   display: block;
+  width: 1.375rem;
+  height: 1.375rem;
   line-height: 1.375;
 }
 
@@ -2191,7 +2374,7 @@ code {
   display: block;
   padding-left: 1.5rem;
   transition: all 0.35s;
-  line-height: 1.125;
+  line-height: 1.375;
 }
 
 .c-form .c-form_label-radio span::before,
@@ -2208,8 +2391,9 @@ code {
 .c-form .c-form_label-radio span::before,
 .c-form .c-form_label-check span::before {
   left: 0;
-  width: 1.125rem;
-  height: 1.125rem;
+  background-color: #FFF;
+  width: 1.375rem;
+  height: 1.375rem;
   border: 1px solid #A5A5A5;
 }
 
@@ -2220,9 +2404,9 @@ code {
 .c-form .c-form_label-check span::after {
   display: none;
   top: 3px;
-  left: 2px;
-  width: 0.875rem;
-  height: 0.5rem;
+  left: 3px;
+  width: 1rem;
+  height: 0.675rem;
   border-bottom: 4px solid #FFF;
   border-left: 4px solid #FFF;
   -webkit-transform: rotate(-55deg);
