@@ -974,14 +974,14 @@ code {
 
 .l-footer {
   background-color: #FFF;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   padding-right: 2rem;
   padding-left: 2rem;
   text-align: center;
 }
 
 .l-footer .copy {
-  margin: 2rem 0;
+  margin: 1rem 0 1.5rem;
 }
 
 @media print, screen and (max-width: 699px) {
@@ -991,15 +991,13 @@ code {
   }
 }
 
-@media print, screen and (min-width: 700px) {
-  .l-footer {
-    margin-top: 4rem;
-  }
-}
-
 @media print, screen and (min-width: 960px) {
   .l-footer {
-    margin-top: 6rem;
+    margin-top: 2rem;
+  }
+
+  .l-footer .copy {
+    margin-top: 1rem;
   }
 }
 
@@ -1995,7 +1993,7 @@ code {
   overflow: scroll;
   background-color: #FFF;
   width: 100%;
-  max-height: 50vh;
+  max-height: 60vh;
   margin: 0 auto;
   border: 1px solid #999;
   box-sizing: border-box;

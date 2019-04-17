@@ -9,13 +9,13 @@
 .l-footer {
 
   background-color: $color_white;
-  margin-top: $ct_gutter * 2;
+  margin-top: $ct_gutter * 1.5;
   padding-right: $ct_gutter * 2;
   padding-left: $ct_gutter * 2;
   text-align: center;
 
   .copy {
-    margin: ($ct_gutter * 2) 0;
+    margin: $ct_gutter 0 ($ct_gutter * 1.5);
   }// .copy
 
   @include mq(sp, max, true) {
@@ -25,10 +25,16 @@
 
   }// @include mq(sp, max, true)
   @include mq(tab) {
-    margin-top: $ct_gutter * 4;
+    // margin-top: $ct_gutter * 4;
   }// @include mq(tab)
   @include mq(pc) {
-    margin-top: $ct_gutter * 6;
+
+    margin-top: $ct_gutter * 2;
+
+    .copy {
+      margin-top: $ct_gutter;
+    }// .copy
+
   }// @include mq(pc)
   @include mq(wide) {
   }// @include mq(wide)
