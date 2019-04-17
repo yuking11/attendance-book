@@ -18,4 +18,13 @@ class Category extends Model
     {
         return $this->hasMany('App\Member');
     }
+
+    /**
+     * リレーションシップ - statusesテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function statuses()
+    {
+        return $this->hasManyThrough('App\Status', 'App\Member');
+    }
 }

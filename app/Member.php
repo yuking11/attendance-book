@@ -23,8 +23,8 @@ class Member extends Model
      * リレーションシップ - statusテーブル
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function status()
+    public function statuses()
     {
-        return $this->hasMany('App\State');
+        return $this->hasMany('App\Status');
     }
 }

@@ -56,8 +56,17 @@ class User extends Authenticatable
     }
 
     /**
+     * リレーションシップ - statusesテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function statuses()
+    {
+        return $this->hasManyThrough('App\Status', 'App\Member');
+    }
+
+    /**
      * リレーションシップ - categories->membersテーブル
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function memberWithCategory()
     {

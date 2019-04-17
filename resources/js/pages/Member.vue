@@ -28,67 +28,73 @@
               </ul>
             </div>
             <Loader v-show="isLoading" />
-            <form
-              id="form-regist"
-              class="c-form"
-              v-show="! isLoading"
-              @submit.prevent="regist"
-            >
-              <div class="c-form_list-head">
-                <div class="head_item head_item-name">名前入力</div>
-                <div class="head_item head_item-category">カテゴリ</div>
-                <div class="head_item head_item-btn">追加</div>
-                <div class="head_item head_item-btn">削除</div>
-              </div>
-              <ul class="c-form_list">
-                <li
-                  class="c-form_line"
-                  v-for="(item, index) in newMembers"
-                  :key="index"
-                >
-                  <input
-                    type="text"
-                    name="member[][name]"
-                    class="c-form_input c-form-wide line_item"
-                    required
-                    placeholder="名前"
-                    v-model="item.name"
+            <template v-if="! categories.length">
+              <p v-show="! isLoading"><router-link to="/category">カテゴリ</router-link>が登録されていません。</p>
+            </template>
+            <template v-else>
+              <form
+                id="form-regist"
+                class="c-form"
+                v-show="! isLoading"
+                @submit.prevent="regist"
+              >
+                <div class="c-form_list-head">
+                  <div class="head_item head_item-name">名前入力</div>
+                  <div class="head_item head_item-category">カテゴリ</div>
+                  <div class="head_item head_item-btn">追加</div>
+                  <div class="head_item head_item-btn">削除</div>
+                </div>
+                <ul class="c-form_list">
+                  <li
+                    class="c-form_line"
+                    v-for="(item, index) in newMembers"
+                    :key="index"
                   >
-                  <label class="c-form_select-label line_item">
-                    <select
-                      name="member[][category]"
-                      class="c-form_select c-form_category"
+                    <input
+                      type="text"
+                      name="member[][name]"
+                      class="c-form_input c-form-wide line_item"
                       required
-                      v-model="item.category_id"
+                      placeholder="名前"
+                      v-model="item.name"
+                      :ref="'member_' + index"
                     >
-                      <option value="" disabled selected>ー</option>
-                      <option
-                        v-for="(category, index) in categories"
-                        :value="category.id"
-                      >{{ category.name }}</option>
-                    </select>
-                  </label>
-                  <button
-                    type="button"
-                    class="c-form_add line_item"
-                    @click="addLine"
-                  ><i class="fas fa-plus-square"></i></button>
-                  <button
-                    type="button"
-                    class="c-form_del line_item"
-                    v-bind:disabled="newMembers.length <= 1"
-                    @click="deleteLine(index)"
-                  ><i class="fas fa-minus-square"></i></button>
-                </li>
+                    <label class="c-form_select-label line_item">
+                      <select
+                        name="member[][category]"
+                        class="c-form_select c-form_category"
+                        required
+                        v-model="item.category_id"
+                      >
+                        <option value="" disabled selected>ー</option>
+                        <option
+                          v-for="(category, index) in categories"
+                          :value="category.id"
+                        >{{ category.name }}</option>
+                      </select>
+                    </label>
+                    <button
+                      type="button"
+                      class="c-form_add line_item"
+                      @click="addLine(index)"
+                    ><i class="fas fa-plus-square"></i></button>
+                    <button
+                      type="button"
+                      class="c-form_del line_item"
+                      v-bind:disabled="newMembers.length <= 1"
+                      @click="deleteLine(index)"
+                    ><i class="fas fa-minus-square"></i></button>
+                  </li>
+                </ul>
+                <div class="c-btn-wrap c-btn-wrap-right">
+                  <button type="submit" class="c-btn c-btn-black">登録</button>
+                </div>
+              </form>
+              <ul class="c-notice u-mb0">
+                <li class="c-notice_item">「＋」「−」で行の追加／削除が可能です。</li>
+                <li class="c-notice_item">空白行があると登録エラーとなりますのでご注意ください。</li>
               </ul>
-              <div class="c-btn-wrap c-btn-wrap-right">
-                <button type="submit" class="c-btn c-btn-black">登録</button>
-              </div>
-            </form>
-            <ul class="c-notice u-mb0">
-              <li class="c-notice_item">「＋」「−」で行の追加／削除が可能です。</li>
-              <li class="c-notice_item">空白行があると登録エラーとなりますのでご注意ください。</li>
-            </ul>
+            </template>
           </div>
           <div
             class="panel_item"
@@ -109,8 +115,11 @@
                 <li v-for="(msg, key) in deleteErrors" :key="key" class="c-errors_item">{{ msg[0] }}</li>
               </ul>
             </div>
-            <template v-if="members.length">
-              <Loader v-show="isLoading" />
+            <Loader v-show="isLoading" />
+            <template v-if="! members.length">
+              <p><a href="#" @click="tab = 1">メンバー</a>が登録されていません。</p>
+            </template>
+            <template v-else>
               <form
                 id="form-edit"
                 class="c-form"
@@ -182,9 +191,6 @@
                 <li class="c-notice_item">表示順はカテゴリの表示順が優先され、入力された数字が小さいものから上に表示されます。</li>
               </ul>
             </template>
-            <template v-else>
-              <p>メンバーが登録されていません</p>
-            </template>
           </div>
         </div>
       </div>
@@ -225,12 +231,14 @@ export default {
       success: null
     }
   },
-  computed: mapState({
-    apiStatus: state => state.member.apiStatus,
-    registerErrors: state => state.member.registerErrorMessages,
-    updateErrors: state => state.member.updateErrorMessages,
-    deleteErrors: state => state.member.deleteErrorMessages
-  }),
+  computed: {
+    ...mapState({
+      apiStatus: state => state.member.apiStatus,
+      registerErrors: state => state.member.registerErrorMessages,
+      updateErrors: state => state.member.updateErrorMessages,
+      deleteErrors: state => state.member.deleteErrorMessages
+    })
+  },
   created () {
     this.fetchCategories()
     this.fetchMembers()
@@ -260,8 +268,9 @@ export default {
       this.members = RESPONSE.data.member
       this.isLoading = false
     },
-    addLine () {
+    addLine (index) {
       this.newMembers.push({ name: null, category_id: '' })
+      this.$nextTick(() => this.$refs['member_' + (++index)]['0'].focus())
     },
     deleteLine (index) {
       this.newMembers.splice(index, 1)

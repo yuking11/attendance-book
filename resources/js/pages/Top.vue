@@ -4,7 +4,8 @@
 
       <h1 class="c-ttl-primary u-tac">2019年度</h1>
 
-    <div id="c-books_container" ref="books_container" class="c-books_wrap">
+    <Loader v-show="isLoading" />
+    <div id="c-books_container" ref="books_container" class="c-books_wrap" v-show="! isLoading">
       <div id="c-books" :data-days="days">
         <div class="c-books_head">
           <div class="head_ttl"><span>名前</span></div>
@@ -31,90 +32,47 @@
           </div>
         </div>
         <div class="c-books_body">
-          <div class="body_line">
-            <div class="body_name"><span>山田　太郎</span></div>
-            <div class="body_count"><span>10</span></div>
-            <div class="body_days c-form">
-              <template
-                v-for="calendar in calendars"
+          <template v-for="(category, i) in items">
+            <div
+              class="body_container"
+              v-if="category.members.length"
+              :key="category.id"
+            >
+              <div class="body_head"><span>{{ category.name }}</span></div>
+              <div
+                class="body_line"
+                v-for="(member, n) in category.members"
+                :key="member.id"
               >
-                <div
-                  class="body_cell"
-                  v-bind:class="classWeekday(calendar.date)"
-                  :key="calendar.id"
-                >
-                  <label class="c-form_label-check">
-                    <input type="checkbox" name="check[]" value="1">
-                    <span></span>
-                  </label>
-                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
+                <div class="body_name"><span>{{ member.name }}</span></div>
+                <div class="body_count"><span>{{ member.statuses.length }}</span></div>
+                <div class="body_days c-form">
+                  <template
+                    v-for="(calendar, c) in calendars"
+                  >
+                    <div
+                      class="body_cell"
+                      v-bind:class="classWeekday(calendar.date)"
+                      :key="calendar.date"
+                    >
+                      <button
+                        type="button"
+                        class=""
+                        v-if="isAttendance(member.statuses, calendar.id)"
+                        @click="update(calendar.id, member.id, 0)"
+                      ><i class="fas fa-check-square"></i></button>
+                      <button
+                        type="button"
+                        class=""
+                        v-else
+                        @click="update(calendar.id, member.id, 1)"
+                      ><i class="far fa-square"></i></button>
+                    </div>
+                  </template>
                 </div>
-              </template>
+              </div>
             </div>
-          </div>
-          <div class="body_line">
-            <div class="body_name"><span>山田　太郎</span></div>
-            <div class="body_count"><span>10</span></div>
-            <div class="body_days c-form">
-              <template
-                v-for="calendar in calendars"
-              >
-                <div
-                  class="body_cell"
-                  v-bind:class="classWeekday(calendar.date)"
-                  :key="calendar.id"
-                >
-                  <label class="c-form_label-check">
-                    <input type="checkbox" name="check[]" value="1">
-                    <span></span>
-                  </label>
-                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
-                </div>
-              </template>
-            </div>
-          </div>
-          <div class="body_line">
-            <div class="body_name"><span>山田　太郎</span></div>
-            <div class="body_count"><span>10</span></div>
-            <div class="body_days c-form">
-              <template
-                v-for="calendar in calendars"
-              >
-                <div
-                  class="body_cell"
-                  v-bind:class="classWeekday(calendar.date)"
-                  :key="calendar.id"
-                >
-                  <label class="c-form_label-check">
-                    <input type="checkbox" name="check[]" value="1">
-                    <span></span>
-                  </label>
-                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
-                </div>
-              </template>
-            </div>
-          </div>
-          <div class="body_line">
-            <div class="body_name"><span>山田　太郎</span></div>
-            <div class="body_count"><span>10</span></div>
-            <div class="body_days c-form">
-              <template
-                v-for="calendar in calendars"
-              >
-                <div
-                  class="body_cell"
-                  v-bind:class="classWeekday(calendar.date)"
-                  :key="calendar.id"
-                >
-                  <label class="c-form_label-check">
-                    <input type="checkbox" name="check[]" value="1">
-                    <span></span>
-                  </label>
-                  <!-- <span><label for=""><input type="checkbox" value="1"></label></span> -->
-                </div>
-              </template>
-            </div>
-          </div>
+          </template>
         </div>
       </div>
     </div>
@@ -124,7 +82,9 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import { OK } from '../util'
+import Loader from '../components/Loader.vue'
 import moment from 'moment'
 
 moment.lang('ja', {
@@ -134,26 +94,44 @@ moment.lang('ja', {
 
 export default {
   components: {
+    Loader
   },
   data () {
     return {
+      isLoading: false,
       calendars: [],
       monthly: [],
-      days: []
+      days: [],
+      items: [],
+      statuses: [],
     }
   },
   computed: {
+    ...mapState({
+      apiStatus: state => state.top.apiStatus,
+      updateErrors: state => state.top.updateErrorMessages,
+    }),
+    ...mapGetters({
+      userId: 'auth/userid'
+    }),
+  },
+  created () {
+    this.fetchCalendars()
   },
   methods: {
     async fetchCalendars () {
+      this.isLoading = true
+
       const RESPONSE = await axios.get('/api/index')
-console.log(RESPONSE);
+
       if (RESPONSE.status !== OK) {
         this.$store.commit('error/setCode', RESPONSE.status)
         return false
       }
-      this.calendars = RESPONSE.data['calendar']
-      this.days = RESPONSE.data['days']
+
+      this.items = RESPONSE.data.data
+      this.calendars = RESPONSE.data.calendar
+      this.days = RESPONSE.data.days
       this.monthly = {
         '4月': 30,
         '5月': 31,
@@ -173,7 +151,25 @@ console.log(RESPONSE);
       }
       const TODAY = moment().format('YYYY-MM-DD 00:00:00')
       const count = moment(this.calendars[0].date).diff(TODAY, 'days')
-      this.$refs.books_container.scrollLeft = 32 * -count
+      this.$nextTick(() => this.$refs.books_container.scrollLeft = 32 * -count)
+
+      this.isLoading = false
+    },
+    async update (calendarId, memberId, statusValue) {
+      this.isLoading = true
+
+      const formData = new FormData()
+      formData.append('calendar_id', Number(calendarId))
+      formData.append('member_id', Number(memberId))
+      formData.append('status', statusValue)
+
+      const RESPONSE = await this.$store.dispatch('top/status', formData)
+
+      if (this.apiStatus) {
+        this.items = RESPONSE.data
+      }
+
+      this.isLoading = false
     },
     classWeekday (date) {
       const TODAY = moment().format('YYYY-MM-DD 00:00:00')
@@ -184,27 +180,20 @@ console.log(RESPONSE);
         today: date === TODAY ? true : false
       }
     },
+    isAttendance (array, id) {
+      const data = array.find(item => item.calendar_id === id)
+      return data
+    },
+    clearMessage () {
+      this.$store.commit('top/setUpdateErrorMessages', null)
+    }
   },
-  created () {
-    this.fetchCalendars()
-  },
-  mounted () {
-  },
-  // watch: {
-  //   $route: {
-  //     async handler () {
-  //       await this.fetchCalendars()
-  //     },
-  //     immediate: true
-  //   }
-  // },
   filters: {
     month (date) {
       // return moment(date).format('YYYY/MM/DD HH:mm')
       return moment(date).format('MM月')
     },
     days (date) {
-      // return moment(date).format('YYYY/MM/DD HH:mm')
       return moment(date).format('D')
     },
     weekdays (date) {

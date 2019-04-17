@@ -52,11 +52,12 @@
                     required
                     placeholder="カテゴリ名"
                     v-model="item.name"
+                    :ref="'category_' + index"
                   >
                   <button
                     type="button"
                     class="c-form_add line_item"
-                    @click="addLine"
+                    @click="addLine(index)"
                   ><i class="fas fa-plus-square"></i></button>
                   <button
                     type="button"
@@ -104,8 +105,11 @@
                 </ul>
               </template>
             </div>
-            <template v-if="categories.length">
-              <Loader v-show="isLoading" />
+            <Loader v-show="isLoading" />
+            <template v-if="! categories.length">
+              <p v-show="! isLoading"><a href="#" @click="tab = 1">カテゴリ</a>が登録されていません。</p>
+            </template>
+            <template v-else>
               <form
                 id="form-edit"
                 class="c-form"
@@ -164,9 +168,6 @@
                 <li class="c-notice_item">所属するメンバーがいると削除できません。メンバーを別のカテゴリに移動させた上、削除を行ってください。</li>
               </ul>
             </template>
-            <template v-else>
-              <p>カテゴリが登録されていません</p>
-            </template>
           </div>
         </div>
       </div>
@@ -205,12 +206,14 @@ export default {
       success: null
     }
   },
-  computed: mapState({
-    apiStatus: state => state.category.apiStatus,
-    registerErrors: state => state.category.registerErrorMessages,
-    updateErrors: state => state.category.updateErrorMessages,
-    deleteErrors: state => state.category.deleteErrorMessages
-  }),
+  computed: {
+    ...mapState({
+      apiStatus: state => state.category.apiStatus,
+      registerErrors: state => state.category.registerErrorMessages,
+      updateErrors: state => state.category.updateErrorMessages,
+      deleteErrors: state => state.category.deleteErrorMessages
+    })
+  },
   created () {
     this.fetchCategories()
     this.clearMessage()
@@ -230,12 +233,12 @@ export default {
       this.categories = RESPONSE.data
       this.isLoading = false
     },
-    addLine () {
+    addLine (index) {
       this.newCategories.push({ name: null })
+      this.$nextTick(() => this.$refs['category_' + (++index)]['0'].focus())
     },
     deleteLine (index) {
       this.newCategories.splice(index, 1)
-      console.log('delete' + index)
     },
     reset () {
       this.newCategories = [{ name: null }]

@@ -8,6 +8,7 @@
 // ================================== //
 $color_red: #EF3724;
 $color_orange: #F90;
+$color_orange_dark: #F60;
 $color_yellow: #FFD600;
 $color_green: #28A745;
 $color_teal: #66E4E6;
@@ -109,7 +110,7 @@ $tooltip_txt_color: #FFF;
 // チェックボックス＆ラジオボタン
 $ui_input_bdr_color: $color_gray;
 $ui_input_bg_color: #FFF;
-$ui_input_checked_color: $main_color;
+$ui_input_checked_color: $color_orange_dark;
 
 // セレクトメニュー
 $ui_select_bg_color: #FFF;

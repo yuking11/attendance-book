@@ -2221,6 +2221,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -2422,7 +2427,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       success: null
     };
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     apiStatus: function apiStatus(state) {
       return state.category.apiStatus;
     },
@@ -2435,7 +2440,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteErrors: function deleteErrors(state) {
       return state.category.deleteErrorMessages;
     }
-  }),
+  })),
   created: function created() {
     this.fetchCategories();
     this.clearMessage();
@@ -2485,14 +2490,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return fetchCategories;
     }(),
-    addLine: function addLine() {
+    addLine: function addLine(index) {
+      var _this = this;
+
       this.newCategories.push({
         name: null
+      });
+      this.$nextTick(function () {
+        return _this.$refs['category_' + ++index]['0'].focus();
       });
     },
     deleteLine: function deleteLine(index) {
       this.newCategories.splice(index, 1);
-      console.log('delete' + index);
     },
     reset: function reset() {
       this.newCategories = [{
@@ -2635,11 +2644,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return deleteCategory;
     }(),
     onEnd: function onEnd(e) {
-      var _this = this;
+      var _this2 = this;
 
       var line = document.querySelectorAll('#form-edit .c-form_line');
       line.forEach(function (el, index) {
-        _this.categories[index].sort = index;
+        _this2.categories[index].sort = index;
       });
     },
     clearMessage: function clearMessage() {
@@ -2886,6 +2895,16 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3107,7 +3126,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       success: null
     };
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     apiStatus: function apiStatus(state) {
       return state.member.apiStatus;
     },
@@ -3120,7 +3139,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     deleteErrors: function deleteErrors(state) {
       return state.member.deleteErrorMessages;
     }
-  }),
+  })),
   created: function created() {
     this.fetchCategories();
     this.fetchMembers();
@@ -3212,10 +3231,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return fetchMembers;
     }(),
-    addLine: function addLine() {
+    addLine: function addLine(index) {
+      var _this = this;
+
       this.newMembers.push({
         name: null,
         category_id: ''
+      });
+      this.$nextTick(function () {
+        return _this.$refs['member_' + ++index]['0'].focus();
       });
     },
     deleteLine: function deleteLine(index) {
@@ -3364,11 +3388,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return deleteMember;
     }(),
     onEnd: function onEnd(e) {
-      var _this = this;
+      var _this2 = this;
 
       var line = document.querySelectorAll('#form-edit .c-form_line');
       line.forEach(function (el, index) {
-        _this.members[index].sort = index;
+        _this2.members[index].sort = index;
       });
     },
     clearMessage: function clearMessage() {
@@ -3393,57 +3417,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+/* harmony import */ var _components_Loader_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Loader.vue */ "./resources/js/components/Loader.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3529,38 +3517,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 
-moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
+
+
+moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
   weekdays: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
   weekdaysShort: ["日", "月", "火", "水", "木", "金", "土"]
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {},
+  components: {
+    Loader: _components_Loader_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
+      isLoading: false,
       calendars: [],
       monthly: [],
-      days: []
+      days: [],
+      items: [],
+      statuses: []
     };
   },
-  computed: {},
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    apiStatus: function apiStatus(state) {
+      return state.top.apiStatus;
+    },
+    updateErrors: function updateErrors(state) {
+      return state.top.updateErrorMessages;
+    }
+  }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    userId: 'auth/userid'
+  })),
+  created: function created() {
+    this.fetchCalendars();
+  },
   methods: {
     fetchCalendars: function () {
       var _fetchCalendars = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this = this;
+
         var RESPONSE, TODAY, count;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                this.isLoading = true;
+                _context.next = 3;
                 return axios.get('/api/index');
 
-              case 2:
+              case 3:
                 RESPONSE = _context.sent;
-                console.log(RESPONSE);
 
-                if (!(RESPONSE.status !== _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                if (!(RESPONSE.status !== _util__WEBPACK_IMPORTED_MODULE_2__["OK"])) {
                   _context.next = 7;
                   break;
                 }
@@ -3569,8 +3578,9 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
                 return _context.abrupt("return", false);
 
               case 7:
-                this.calendars = RESPONSE.data['calendar'];
-                this.days = RESPONSE.data['days'];
+                this.items = RESPONSE.data.data;
+                this.calendars = RESPONSE.data.calendar;
+                this.days = RESPONSE.data.days;
                 this.monthly = {
                   '4月': 30,
                   '5月': 31,
@@ -3590,11 +3600,14 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
                   this.monthly['2月'] = 29;
                 }
 
-                TODAY = moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD 00:00:00');
-                count = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.calendars[0].date).diff(TODAY, 'days');
-                this.$refs.books_container.scrollLeft = 32 * -count;
+                TODAY = moment__WEBPACK_IMPORTED_MODULE_4___default()().format('YYYY-MM-DD 00:00:00');
+                count = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.calendars[0].date).diff(TODAY, 'days');
+                this.$nextTick(function () {
+                  return _this.$refs.books_container.scrollLeft = 32 * -count;
+                });
+                this.isLoading = false;
 
-              case 14:
+              case 16:
               case "end":
                 return _context.stop();
             }
@@ -3608,39 +3621,75 @@ moment__WEBPACK_IMPORTED_MODULE_2___default.a.lang('ja', {
 
       return fetchCalendars;
     }(),
+    update: function () {
+      var _update = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(calendarId, memberId, statusValue) {
+        var formData, RESPONSE;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                this.isLoading = true;
+                formData = new FormData();
+                formData.append('calendar_id', Number(calendarId));
+                formData.append('member_id', Number(memberId));
+                formData.append('status', statusValue);
+                _context2.next = 7;
+                return this.$store.dispatch('top/status', formData);
+
+              case 7:
+                RESPONSE = _context2.sent;
+
+                if (this.apiStatus) {
+                  this.items = RESPONSE.data;
+                }
+
+                this.isLoading = false;
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function update(_x, _x2, _x3) {
+        return _update.apply(this, arguments);
+      }
+
+      return update;
+    }(),
     classWeekday: function classWeekday(date) {
-      var TODAY = moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD 00:00:00');
-      var week = moment__WEBPACK_IMPORTED_MODULE_2___default()(date).day();
+      var TODAY = moment__WEBPACK_IMPORTED_MODULE_4___default()().format('YYYY-MM-DD 00:00:00');
+      var week = moment__WEBPACK_IMPORTED_MODULE_4___default()(date).day();
       return {
         saturday: week === 6 ? true : false,
         sunday: week === 0 ? true : false,
         today: date === TODAY ? true : false
       };
+    },
+    isAttendance: function isAttendance(array, id) {
+      var data = array.find(function (item) {
+        return item.calendar_id === id;
+      });
+      return data;
+    },
+    clearMessage: function clearMessage() {
+      this.$store.commit('top/setUpdateErrorMessages', null);
     }
   },
-  created: function created() {
-    this.fetchCalendars();
-  },
-  mounted: function mounted() {},
-  // watch: {
-  //   $route: {
-  //     async handler () {
-  //       await this.fetchCalendars()
-  //     },
-  //     immediate: true
-  //   }
-  // },
   filters: {
     month: function month(date) {
       // return moment(date).format('YYYY/MM/DD HH:mm')
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format('MM月');
+      return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format('MM月');
     },
     days: function days(date) {
-      // return moment(date).format('YYYY/MM/DD HH:mm')
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format('D');
+      return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format('D');
     },
     weekdays: function weekdays(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format('ddd');
+      return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format('ddd');
     }
   }
 });
@@ -25483,6 +25532,8 @@ var render = function() {
                                 expression: "item.name"
                               }
                             ],
+                            ref: "category_" + index,
+                            refInFor: true,
                             staticClass: "c-form_input c-form-wide line_item",
                             attrs: {
                               type: "text",
@@ -25506,7 +25557,11 @@ var render = function() {
                             {
                               staticClass: "c-form_add line_item",
                               attrs: { type: "button" },
-                              on: { click: _vm.addLine }
+                              on: {
+                                click: function($event) {
+                                  return _vm.addLine(index)
+                                }
+                              }
                             },
                             [_c("i", { staticClass: "fas fa-plus-square" })]
                           ),
@@ -25646,19 +25701,49 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
-              _vm.categories.length
+              _c("Loader", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoading,
+                    expression: "isLoading"
+                  }
+                ]
+              }),
+              _vm._v(" "),
+              !_vm.categories.length
                 ? [
-                    _c("Loader", {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.isLoading,
-                          expression: "isLoading"
-                        }
+                    _c(
+                      "p",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.isLoading,
+                            expression: "! isLoading"
+                          }
+                        ]
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                _vm.tab = 1
+                              }
+                            }
+                          },
+                          [_vm._v("カテゴリ")]
+                        ),
+                        _vm._v("が登録されていません。")
                       ]
-                    }),
-                    _vm._v(" "),
+                    )
+                  ]
+                : [
                     _c(
                       "form",
                       {
@@ -25818,7 +25903,6 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(5)
                   ]
-                : [_c("p", [_vm._v("カテゴリが登録されていません")])]
             ],
             2
           )
@@ -26452,175 +26536,227 @@ var render = function() {
                 ]
               }),
               _vm._v(" "),
-              _c(
-                "form",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.isLoading,
-                      expression: "! isLoading"
-                    }
-                  ],
-                  staticClass: "c-form",
-                  attrs: { id: "form-regist" },
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.regist($event)
-                    }
-                  }
-                },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    { staticClass: "c-form_list" },
-                    _vm._l(_vm.newMembers, function(item, index) {
-                      return _c(
-                        "li",
-                        { key: index, staticClass: "c-form_line" },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: item.name,
-                                expression: "item.name"
-                              }
-                            ],
-                            staticClass: "c-form_input c-form-wide line_item",
-                            attrs: {
-                              type: "text",
-                              name: "member[][name]",
-                              required: "",
-                              placeholder: "名前"
-                            },
-                            domProps: { value: item.name },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(item, "name", $event.target.value)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "label",
-                            { staticClass: "c-form_select-label line_item" },
-                            [
-                              _c(
-                                "select",
-                                {
+              !_vm.categories.length
+                ? [
+                    _c(
+                      "p",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.isLoading,
+                            expression: "! isLoading"
+                          }
+                        ]
+                      },
+                      [
+                        _c("router-link", { attrs: { to: "/category" } }, [
+                          _vm._v("カテゴリ")
+                        ]),
+                        _vm._v("が登録されていません。")
+                      ],
+                      1
+                    )
+                  ]
+                : [
+                    _c(
+                      "form",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.isLoading,
+                            expression: "! isLoading"
+                          }
+                        ],
+                        staticClass: "c-form",
+                        attrs: { id: "form-regist" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.regist($event)
+                          }
+                        }
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "ul",
+                          { staticClass: "c-form_list" },
+                          _vm._l(_vm.newMembers, function(item, index) {
+                            return _c(
+                              "li",
+                              { key: index, staticClass: "c-form_line" },
+                              [
+                                _c("input", {
                                   directives: [
                                     {
                                       name: "model",
                                       rawName: "v-model",
-                                      value: item.category_id,
-                                      expression: "item.category_id"
+                                      value: item.name,
+                                      expression: "item.name"
                                     }
                                   ],
-                                  staticClass: "c-form_select c-form_category",
+                                  ref: "member_" + index,
+                                  refInFor: true,
+                                  staticClass:
+                                    "c-form_input c-form-wide line_item",
                                   attrs: {
-                                    name: "member[][category]",
-                                    required: ""
+                                    type: "text",
+                                    name: "member[][name]",
+                                    required: "",
+                                    placeholder: "名前"
                                   },
+                                  domProps: { value: item.name },
                                   on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
                                       _vm.$set(
                                         item,
-                                        "category_id",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
+                                        "name",
+                                        $event.target.value
                                       )
                                     }
                                   }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: {
-                                        value: "",
-                                        disabled: "",
-                                        selected: ""
-                                      }
-                                    },
-                                    [_vm._v("ー")]
-                                  ),
-                                  _vm._v(" "),
-                                  _vm._l(_vm.categories, function(
-                                    category,
-                                    index
-                                  ) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: category.id } },
-                                      [_vm._v(_vm._s(category.name))]
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "c-form_select-label line_item"
+                                  },
+                                  [
+                                    _c(
+                                      "select",
+                                      {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: item.category_id,
+                                            expression: "item.category_id"
+                                          }
+                                        ],
+                                        staticClass:
+                                          "c-form_select c-form_category",
+                                        attrs: {
+                                          name: "member[][category]",
+                                          required: ""
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            var $$selectedVal = Array.prototype.filter
+                                              .call(
+                                                $event.target.options,
+                                                function(o) {
+                                                  return o.selected
+                                                }
+                                              )
+                                              .map(function(o) {
+                                                var val =
+                                                  "_value" in o
+                                                    ? o._value
+                                                    : o.value
+                                                return val
+                                              })
+                                            _vm.$set(
+                                              item,
+                                              "category_id",
+                                              $event.target.multiple
+                                                ? $$selectedVal
+                                                : $$selectedVal[0]
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "option",
+                                          {
+                                            attrs: {
+                                              value: "",
+                                              disabled: "",
+                                              selected: ""
+                                            }
+                                          },
+                                          [_vm._v("ー")]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._l(_vm.categories, function(
+                                          category,
+                                          index
+                                        ) {
+                                          return _c(
+                                            "option",
+                                            {
+                                              domProps: { value: category.id }
+                                            },
+                                            [_vm._v(_vm._s(category.name))]
+                                          )
+                                        })
+                                      ],
+                                      2
                                     )
-                                  })
-                                ],
-                                2
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "c-form_add line_item",
-                              attrs: { type: "button" },
-                              on: { click: _vm.addLine }
-                            },
-                            [_c("i", { staticClass: "fas fa-plus-square" })]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "c-form_del line_item",
-                              attrs: {
-                                type: "button",
-                                disabled: _vm.newMembers.length <= 1
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteLine(index)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-minus-square" })]
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
-                  _vm._m(1)
-                ]
-              ),
-              _vm._v(" "),
-              _vm._m(2)
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "c-form_add line_item",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.addLine(index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-plus-square"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "c-form_del line_item",
+                                    attrs: {
+                                      type: "button",
+                                      disabled: _vm.newMembers.length <= 1
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteLine(index)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fas fa-minus-square"
+                                    })
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]
             ],
-            1
+            2
           ),
           _vm._v(" "),
           _c(
@@ -26685,19 +26821,36 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm.members.length
+              _c("Loader", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.isLoading,
+                    expression: "isLoading"
+                  }
+                ]
+              }),
+              _vm._v(" "),
+              !_vm.members.length
                 ? [
-                    _c("Loader", {
-                      directives: [
+                    _c("p", [
+                      _c(
+                        "a",
                         {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.isLoading,
-                          expression: "isLoading"
-                        }
-                      ]
-                    }),
-                    _vm._v(" "),
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.tab = 1
+                            }
+                          }
+                        },
+                        [_vm._v("メンバー")]
+                      ),
+                      _vm._v("が登録されていません。")
+                    ])
+                  ]
+                : [
                     _c(
                       "form",
                       {
@@ -26924,7 +27077,6 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(5)
                   ]
-                : [_c("p", [_vm._v("メンバーが登録されていません")])]
             ],
             2
           )
@@ -27053,180 +27205,217 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "l-content" }, [
-    _c("div", { staticClass: "l-inner" }, [
-      _c("h1", { staticClass: "c-ttl-primary u-tac" }, [_vm._v("2019年度")]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          ref: "books_container",
-          staticClass: "c-books_wrap",
-          attrs: { id: "c-books_container" }
-        },
-        [
-          _c("div", { attrs: { id: "c-books", "data-days": _vm.days } }, [
-            _c("div", { staticClass: "c-books_head" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "head_date" }, [
-                _c(
-                  "div",
-                  { staticClass: "date_monthly" },
-                  _vm._l(_vm.monthly, function(value, key, index) {
-                    return _c(
-                      "div",
-                      {
-                        key: index,
-                        staticClass: "month",
-                        attrs: { "data-count": value }
-                      },
-                      [_c("span", [_vm._v(_vm._s(key))])]
-                    )
-                  }),
-                  0
-                ),
+    _c(
+      "div",
+      { staticClass: "l-inner" },
+      [
+        _c("h1", { staticClass: "c-ttl-primary u-tac" }, [_vm._v("2019年度")]),
+        _vm._v(" "),
+        _c("Loader", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.isLoading,
+              expression: "isLoading"
+            }
+          ]
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.isLoading,
+                expression: "! isLoading"
+              }
+            ],
+            ref: "books_container",
+            staticClass: "c-books_wrap",
+            attrs: { id: "c-books_container" }
+          },
+          [
+            _c("div", { attrs: { id: "c-books", "data-days": _vm.days } }, [
+              _c("div", { staticClass: "c-books_head" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "date_days" },
-                  _vm._l(_vm.calendars, function(calendar, index) {
-                    return _c(
-                      "div",
-                      {
-                        staticClass: "day",
-                        class: _vm.classWeekday(calendar.date)
-                      },
-                      [
-                        _c("div", [
-                          _vm._v(_vm._s(_vm._f("days")(calendar.date)))
-                        ]),
-                        _vm._v(" "),
-                        _c("div", [
-                          _vm._v(_vm._s(_vm._f("weekdays")(calendar.date)))
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "c-books_body" }, [
-              _c("div", { staticClass: "body_line" }, [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(3),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "body_days c-form" },
-                  [
-                    _vm._l(_vm.calendars, function(calendar) {
-                      return [
-                        _c(
-                          "div",
-                          {
-                            key: calendar.id,
-                            staticClass: "body_cell",
-                            class: _vm.classWeekday(calendar.date)
-                          },
-                          [_vm._m(4, true)]
-                        )
-                      ]
-                    })
-                  ],
-                  2
-                )
+                _c("div", { staticClass: "head_date" }, [
+                  _c(
+                    "div",
+                    { staticClass: "date_monthly" },
+                    _vm._l(_vm.monthly, function(value, key, index) {
+                      return _c(
+                        "div",
+                        {
+                          key: index,
+                          staticClass: "month",
+                          attrs: { "data-count": value }
+                        },
+                        [_c("span", [_vm._v(_vm._s(key))])]
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "date_days" },
+                    _vm._l(_vm.calendars, function(calendar, index) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass: "day",
+                          class: _vm.classWeekday(calendar.date)
+                        },
+                        [
+                          _c("div", [
+                            _vm._v(_vm._s(_vm._f("days")(calendar.date)))
+                          ]),
+                          _vm._v(" "),
+                          _c("div", [
+                            _vm._v(_vm._s(_vm._f("weekdays")(calendar.date)))
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "body_line" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _vm._m(6),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "body_days c-form" },
-                  [
-                    _vm._l(_vm.calendars, function(calendar) {
-                      return [
-                        _c(
-                          "div",
-                          {
-                            key: calendar.id,
-                            staticClass: "body_cell",
-                            class: _vm.classWeekday(calendar.date)
-                          },
-                          [_vm._m(7, true)]
-                        )
-                      ]
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "body_line" }, [
-                _vm._m(8),
-                _vm._v(" "),
-                _vm._m(9),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "body_days c-form" },
-                  [
-                    _vm._l(_vm.calendars, function(calendar) {
-                      return [
-                        _c(
-                          "div",
-                          {
-                            key: calendar.id,
-                            staticClass: "body_cell",
-                            class: _vm.classWeekday(calendar.date)
-                          },
-                          [_vm._m(10, true)]
-                        )
-                      ]
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "body_line" }, [
-                _vm._m(11),
-                _vm._v(" "),
-                _vm._m(12),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "body_days c-form" },
-                  [
-                    _vm._l(_vm.calendars, function(calendar) {
-                      return [
-                        _c(
-                          "div",
-                          {
-                            key: calendar.id,
-                            staticClass: "body_cell",
-                            class: _vm.classWeekday(calendar.date)
-                          },
-                          [_vm._m(13, true)]
-                        )
-                      ]
-                    })
-                  ],
-                  2
-                )
-              ])
+              _c(
+                "div",
+                { staticClass: "c-books_body" },
+                [
+                  _vm._l(_vm.items, function(category, i) {
+                    return [
+                      category.members.length
+                        ? _c(
+                            "div",
+                            { key: category.id, staticClass: "body_container" },
+                            [
+                              _c("div", { staticClass: "body_head" }, [
+                                _c("span", [_vm._v(_vm._s(category.name))])
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(category.members, function(member, n) {
+                                return _c(
+                                  "div",
+                                  { key: member.id, staticClass: "body_line" },
+                                  [
+                                    _c("div", { staticClass: "body_name" }, [
+                                      _c("span", [_vm._v(_vm._s(member.name))])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "body_count" }, [
+                                      _c("span", [
+                                        _vm._v(_vm._s(member.statuses.length))
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: "body_days c-form" },
+                                      [
+                                        _vm._l(_vm.calendars, function(
+                                          calendar,
+                                          c
+                                        ) {
+                                          return [
+                                            _c(
+                                              "div",
+                                              {
+                                                key: calendar.date,
+                                                staticClass: "body_cell",
+                                                class: _vm.classWeekday(
+                                                  calendar.date
+                                                )
+                                              },
+                                              [
+                                                _vm.isAttendance(
+                                                  member.statuses,
+                                                  calendar.id
+                                                )
+                                                  ? _c(
+                                                      "button",
+                                                      {
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.update(
+                                                              calendar.id,
+                                                              member.id,
+                                                              0
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fas fa-check-square"
+                                                        })
+                                                      ]
+                                                    )
+                                                  : _c(
+                                                      "button",
+                                                      {
+                                                        attrs: {
+                                                          type: "button"
+                                                        },
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            return _vm.update(
+                                                              calendar.id,
+                                                              member.id,
+                                                              1
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "far fa-square"
+                                                        })
+                                                      ]
+                                                    )
+                                              ]
+                                            )
+                                          ]
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ]
+                                )
+                              })
+                            ],
+                            2
+                          )
+                        : _vm._e()
+                    ]
+                  })
+                ],
+                2
+              )
             ])
-          ])
-        ]
-      )
-    ])
+          ]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = [
@@ -27244,110 +27433,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "head_count" }, [
       _c("span", [_vm._v("出席数")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_name" }, [
-      _c("span", [_vm._v("山田　太郎")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_count" }, [
-      _c("span", [_vm._v("10")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "c-form_label-check" }, [
-      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
-      _vm._v(" "),
-      _c("span")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_name" }, [
-      _c("span", [_vm._v("山田　太郎")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_count" }, [
-      _c("span", [_vm._v("10")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "c-form_label-check" }, [
-      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
-      _vm._v(" "),
-      _c("span")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_name" }, [
-      _c("span", [_vm._v("山田　太郎")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_count" }, [
-      _c("span", [_vm._v("10")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "c-form_label-check" }, [
-      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
-      _vm._v(" "),
-      _c("span")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_name" }, [
-      _c("span", [_vm._v("山田　太郎")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "body_count" }, [
-      _c("span", [_vm._v("10")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "c-form_label-check" }, [
-      _c("input", { attrs: { type: "checkbox", name: "check[]", value: "1" } }),
-      _vm._v(" "),
-      _c("span")
     ])
   }
 ]
@@ -44134,6 +44219,9 @@ var getters = {
   },
   username: function username(state) {
     return state.user ? state.user.name : '';
+  },
+  userid: function userid(state) {
+    return state.user ? state.user.id : '';
   }
 };
 var mutations = {
@@ -44598,8 +44686,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/store/auth.js");
 /* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error */ "./resources/js/store/error.js");
-/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./category */ "./resources/js/store/category.js");
-/* harmony import */ var _member__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./member */ "./resources/js/store/member.js");
+/* harmony import */ var _top__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./top */ "./resources/js/store/top.js");
+/* harmony import */ var _category__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./category */ "./resources/js/store/category.js");
+/* harmony import */ var _member__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./member */ "./resources/js/store/member.js");
+
 
 
 
@@ -44611,8 +44701,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
     error: _error__WEBPACK_IMPORTED_MODULE_3__["default"],
-    category: _category__WEBPACK_IMPORTED_MODULE_4__["default"],
-    member: _member__WEBPACK_IMPORTED_MODULE_5__["default"]
+    top: _top__WEBPACK_IMPORTED_MODULE_4__["default"],
+    category: _category__WEBPACK_IMPORTED_MODULE_5__["default"],
+    member: _member__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -44659,7 +44750,7 @@ var mutations = {
   }
 };
 var actions = {
-  // カテゴリ登録
+  // メンバー登録
   register: function () {
     var _register = _asyncToGenerator(
     /*#__PURE__*/
@@ -44709,7 +44800,7 @@ var actions = {
 
     return register;
   }(),
-  // カテゴリ更新
+  // メンバー更新
   update: function () {
     var _update = _asyncToGenerator(
     /*#__PURE__*/
@@ -44759,7 +44850,7 @@ var actions = {
 
     return update;
   }(),
-  // カテゴリ削除
+  // メンバー削除
   delete: function () {
     var _delete2 = _asyncToGenerator(
     /*#__PURE__*/
@@ -44808,6 +44899,98 @@ var actions = {
     }
 
     return _delete;
+  }()
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/top.js":
+/*!***********************************!*\
+  !*** ./resources/js/store/top.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  apiStatus: null,
+  updateErrorMessages: null
+};
+var mutations = {
+  setApiStatus: function setApiStatus(state, status) {
+    state.apiStatus = status;
+  },
+  setUpdateErrorMessages: function setUpdateErrorMessages(state, messages) {
+    state.updateErrorMessages = messages;
+  }
+};
+var actions = {
+  // ステータス更新
+  status: function () {
+    var _status = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context, data) {
+      var RESPONSE;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              context.commit('setApiStatus', null);
+              _context.next = 3;
+              return axios.post('/api/status', data);
+
+            case 3:
+              RESPONSE = _context.sent;
+
+              if (!(RESPONSE.status === _util__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context.next = 7;
+                break;
+              }
+
+              context.commit('setApiStatus', true);
+              return _context.abrupt("return", RESPONSE);
+
+            case 7:
+              context.commit('setApiStatus', false);
+
+              if (RESPONSE.status === _util__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                context.commit('setUpdateErrorMessages', RESPONSE.data.errors);
+              } else {
+                context.commit('error/setCode', RESPONSE.status, {
+                  root: true
+                });
+              }
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    function status(_x, _x2) {
+      return _status.apply(this, arguments);
+    }
+
+    return status;
   }()
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

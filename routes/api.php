@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // トップ
 Route::get('/index', 'TopController@index')->name('top.index');
+// ステータス更新
+Route::post('/status', 'TopController@status')->name('top.status');
 
 // 会員登録
 Route::post('/register', 'Auth\RegisterController@register')->name('register');

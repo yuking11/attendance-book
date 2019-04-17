@@ -24,7 +24,7 @@ const mutations = {
 
 const actions = {
 
-  // カテゴリ登録
+  // メンバー登録
   async register (context, data) {
     context.commit('setApiStatus', null)
     const RESPONSE = await axios.post('/api/member/create', data)
@@ -41,7 +41,7 @@ const actions = {
       context.commit('error/setCode', RESPONSE.status, { root: true })
     }
   },
-  // カテゴリ更新
+  // メンバー更新
   async update (context, data) {
     context.commit('setApiStatus', null)
     const RESPONSE = await axios.put('/api/member/update', data)
@@ -58,7 +58,7 @@ const actions = {
       context.commit('error/setCode', RESPONSE.status, { root: true })
     }
   },
-  // カテゴリ削除
+  // メンバー削除
   async delete (context, data) {
     context.commit('setApiStatus', null)
     const RESPONSE = await axios.delete('/api/member/delete', data)

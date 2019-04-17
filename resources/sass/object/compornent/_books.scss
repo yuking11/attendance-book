@@ -10,8 +10,8 @@ $gutter: .5rem;
 $name_width: 8rem;
 $count_width: 4rem;
 $cell_width: 2rem;
-$name_color: #DDD;
-$count_color: #DDD;
+$name_color: #F8CE79;
+$count_color: #F8CE79;
 $border_color: #999;
 
 
@@ -41,7 +41,7 @@ $border_color: #999;
     position: sticky;
     top: 0;
     left: 0;
-    z-index: 20;
+    z-index: 30;
     display: flex;
     background-color: #FFF;
     border-bottom: 1px solid $border_color;
@@ -124,6 +124,26 @@ $border_color: #999;
 
   .c-books_body {
   }// .c-books_body
+  .body_container {
+    position: relative;
+  }// .body_container
+  .body_head {
+    position: sticky;
+    top: 72px;
+    z-index: 20;
+    background-color: $color_gray;
+    width: 100%;
+    color: $color_white;
+    font-weight: bold;
+    span {
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      display: block;
+      width: $name_width + $count_width;
+      padding: ($gutter / 2) $gutter;
+    }// span
+  }// .body_head
   .body_line {
     display: flex;
     &:not(:last-child) {
@@ -153,13 +173,15 @@ $border_color: #999;
     text-align: center;
   }// .body_count
   .body_days {
-    display: flex;;
+    display: flex;
   }// .body_days
   .body_cell {
     display: flex;
     align-items: center;
     justify-content: center;
     width: $cell_width;
+    color: $color_orange_dark;
+    font-size: fs(26);
     &:not(:last-child) {
       border-right: 1px solid $border_color;
     }// &:not(:last-child)

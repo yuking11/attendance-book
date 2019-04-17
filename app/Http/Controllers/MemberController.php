@@ -28,7 +28,7 @@ class MemberController extends Controller
                 ->json([
                   'member' => $this->getMembers(),
                   'category' => $this->getCategories()
-                ]);
+                ], 200);
     }
 
     /**
@@ -134,9 +134,10 @@ class MemberController extends Controller
     {
         return Auth::user()
                       ->memberWithCategory()
-                      // ->join('categories', 'categories.id', '=', 'members.category_id')
                       ->orderBy('categories.sort', $sort)
+                      ->orderBy('categories.name', $sort)
                       ->orderBy('members.sort', $sort)
+                      ->orderBy('members.name', $sort)
                       ->get();
     }
 

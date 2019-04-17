@@ -2019,7 +2019,7 @@ code {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 20;
+  z-index: 30;
   display: flex;
   background-color: #FFF;
   border-bottom: 1px solid #999;
@@ -2038,7 +2038,7 @@ code {
 
 .c-books_wrap .head_ttl {
   left: 0;
-  background-color: #DDD;
+  background-color: #F8CE79;
   width: 8rem;
 }
 
@@ -2049,7 +2049,7 @@ code {
 .c-books_wrap .head_count {
   left: 8rem;
   justify-content: center;
-  background-color: #DDD;
+  background-color: #F8CE79;
   width: 4rem;
 }
 
@@ -2116,6 +2116,31 @@ code {
   border-bottom: 1px solid #999;
 }
 
+.c-books_wrap .body_container {
+  position: relative;
+}
+
+.c-books_wrap .body_head {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 72px;
+  z-index: 20;
+  background-color: #A5A5A5;
+  width: 100%;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.c-books_wrap .body_head span {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  display: block;
+  width: 12rem;
+  padding: 0.25rem 0.5rem;
+}
+
 .c-books_wrap .body_line {
   display: flex;
 }
@@ -2161,6 +2186,8 @@ code {
   align-items: center;
   justify-content: center;
   width: 2rem;
+  color: #F60;
+  font-size: 1.625rem;
 }
 
 .c-books_wrap .body_cell:not(:last-child) {
@@ -2326,12 +2353,12 @@ code {
 
 .c-form .c-form_label-radio:hover span,
 .c-form .c-form_label-check:hover span {
-  color: #3E75E1;
+  color: #F60;
 }
 
 .c-form .c-form_label-radio:hover span::before,
 .c-form .c-form_label-check:hover span::before {
-  border-color: #3E75E1;
+  border-color: #F60;
 }
 
 .c-form .c-form_label-radio input,
@@ -2354,13 +2381,13 @@ code {
 
 .c-form .c-form_label-radio input:checked ~ span,
 .c-form .c-form_label-check input:checked ~ span {
-  color: #3E75E1;
+  color: #F60;
 }
 
 .c-form .c-form_label-radio input:checked ~ span::before,
 .c-form .c-form_label-check input:checked ~ span::before {
   display: block;
-  border-color: #3E75E1;
+  border-color: #F60;
 }
 
 .c-form .c-form_label-radio input:checked ~ span::after,
@@ -2398,7 +2425,7 @@ code {
 }
 
 .c-form .c-form_label-check input:checked ~ span::before {
-  background-color: #3E75E1;
+  background-color: #F60;
 }
 
 .c-form .c-form_label-check span::after {
@@ -2421,7 +2448,7 @@ code {
   display: none;
   top: 3px;
   left: 3px;
-  background-color: #3E75E1;
+  background-color: #F60;
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
