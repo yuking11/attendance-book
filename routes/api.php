@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // トップ
 Route::get('/index', 'TopController@index')->name('top.index');
+Route::get('/index/{id}', 'TopController@index')->name('top.index.{id}')->where('id', '[0-9]+');
+
 // ステータス更新
 Route::post('/status', 'TopController@status')->name('top.status');
 

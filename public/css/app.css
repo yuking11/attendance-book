@@ -556,7 +556,7 @@ code {
 
 @media print, screen and (min-width: 960px) {
   .l-container {
-    padding-top: 2.5rem;
+    padding-top: 2rem;
   }
 }
 
@@ -2050,6 +2050,46 @@ code {
   list-style: disc;
 }
 
+.c-books_nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-books_nav .nav_item {
+  min-width: 48px;
+  margin: 0 1rem;
+}
+
+.c-books_nav .nav_item-prev {
+  text-align: right;
+}
+
+.c-books_nav .nav_item-next {
+  text-align: left;
+}
+
+.c-books_nav .nav_link {
+  color: #333;
+}
+
+.c-books_nav .nav_link[disabled] {
+  color: #A5A5A5;
+  cursor: not-allowed;
+}
+
+@media print, screen and (max-width: 699px) {
+  .c-books_nav {
+    margin-bottom: 1rem;
+  }
+}
+
+@media print, screen and (min-width: 960px) {
+  .c-books_nav {
+    margin-bottom: 1.5rem;
+  }
+}
+
 .c-books_wrap {
   overflow: scroll;
   background-color: #FFF;
@@ -2066,11 +2106,19 @@ code {
 .c-books_wrap #c-books {
   display: block;
   position: relative;
-  width: 742rem;
+  width: 75rem;
 }
 
-.c-books_wrap #c-books[data-days="366"] {
-  width: 744rem;
+.c-books_wrap #c-books[data-days="28"] {
+  width: 69rem;
+}
+
+.c-books_wrap #c-books[data-days="29"] {
+  width: 71rem;
+}
+
+.c-books_wrap #c-books[data-days="30"] {
+  width: 73rem;
 }
 
 .c-books_wrap .c-books_head {
@@ -2109,7 +2157,7 @@ code {
   left: 8rem;
   justify-content: center;
   background-color: #F8CE79;
-  width: 4rem;
+  width: 5rem;
 }
 
 .c-books_wrap .date_monthly {
@@ -2127,7 +2175,7 @@ code {
 .c-books_wrap .month span {
   position: -webkit-sticky;
   position: sticky;
-  left: 12rem;
+  left: 13rem;
   padding: 0 0.5rem;
 }
 
@@ -2182,7 +2230,7 @@ code {
 .c-books_wrap .body_head {
   position: -webkit-sticky;
   position: sticky;
-  top: 72px;
+  top: 43px;
   z-index: 20;
   background-color: #A5A5A5;
   width: 100%;
@@ -2196,7 +2244,7 @@ code {
   left: 0;
   z-index: 10;
   display: block;
-  width: 12rem;
+  width: 13rem;
   padding: 0.25rem 0.5rem;
 }
 
@@ -2232,7 +2280,7 @@ code {
 .c-books_wrap .body_count {
   left: 8rem;
   justify-content: center;
-  width: 4rem;
+  width: 5rem;
   text-align: center;
 }
 

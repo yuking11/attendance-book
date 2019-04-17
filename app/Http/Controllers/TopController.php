@@ -26,14 +26,20 @@ class TopController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param  int  $id
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($id = null)
     {
+
         $now = Carbon::now();
-        $year = $now->subMonthsNoOverflow(3)->year;
-        $start = $year . '-04-01';
-        $end = $year + 1 . '-03-31';
+        // $year = $now->subMonthsNoOverflow(3)->year;
+        // $start = $year . '-04-01';
+        // $end = $year + 1 . '-03-31';
+        $year = substr($id, 0, 4);
+        $month = substr($id, 4, 2);
+        $start = $year . '-' . $month . '-01';
+        $end = $year . '-' . $month . '-31';
 
         $calendars = Calendar::whereBetween('date', [$start, $end])->get();
         $days = Calendar::whereBetween('date', [$start, $end])->count();

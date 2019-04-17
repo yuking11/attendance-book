@@ -3592,6 +3592,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3604,14 +3620,17 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
   components: {
     Loader: _components_Loader_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
+  props: {
+    id: null
+  },
   data: function data() {
     return {
       isLoading: false,
       calendars: [],
-      monthly: [],
       days: [],
       items: [],
-      statuses: []
+      statuses: [],
+      current: 0
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
@@ -3623,7 +3642,23 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
     }
   }), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     userId: 'auth/userid'
-  })),
+  }), {
+    now: function now() {
+      return moment__WEBPACK_IMPORTED_MODULE_4___default()().format('YYYYMM');
+    },
+    currentMoment: function currentMoment() {
+      return moment__WEBPACK_IMPORTED_MODULE_4___default()().add(this.current, 'months');
+    },
+    currentYear: function currentYear() {
+      return this.currentMoment.format('YYYY');
+    },
+    currentMonth: function currentMonth() {
+      return this.currentMoment.format('MM');
+    },
+    yearMonth: function yearMonth() {
+      return this.currentYear + this.currentMonth;
+    }
+  }),
   created: function created() {
     this.fetchCalendars();
   },
@@ -3641,42 +3676,24 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
               case 0:
                 this.isLoading = true;
                 _context.next = 3;
-                return axios.get('/api/index');
+                return axios.get('/api/index/' + this.yearMonth);
 
               case 3:
                 RESPONSE = _context.sent;
+                console.log(RESPONSE);
 
                 if (!(RESPONSE.status !== _util__WEBPACK_IMPORTED_MODULE_2__["OK"])) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
                 this.$store.commit('error/setCode', RESPONSE.status);
                 return _context.abrupt("return", false);
 
-              case 7:
+              case 8:
                 this.items = RESPONSE.data.data;
                 this.calendars = RESPONSE.data.calendar;
                 this.days = RESPONSE.data.days;
-                this.monthly = {
-                  '4月': 30,
-                  '5月': 31,
-                  '6月': 30,
-                  '7月': 31,
-                  '8月': 31,
-                  '9月': 30,
-                  '10月': 31,
-                  '11月': 30,
-                  '12月': 31,
-                  '1月': 31,
-                  '2月': 28,
-                  '3月': 31
-                };
-
-                if (this.days === 366) {
-                  this.monthly['2月'] = 29;
-                }
-
                 TODAY = moment__WEBPACK_IMPORTED_MODULE_4___default()().format('YYYY-MM-DD 00:00:00');
                 count = moment__WEBPACK_IMPORTED_MODULE_4___default()(this.calendars[0].date).diff(TODAY, 'days');
                 this.$nextTick(function () {
@@ -3684,7 +3701,7 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
                 });
                 this.isLoading = false;
 
-              case 16:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -3755,6 +3772,18 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
     },
     clearMessage: function clearMessage() {
       this.$store.commit('top/setUpdateErrorMessages', null);
+    },
+    goNextMonth: function goNextMonth() {
+      this.current++;
+      this.fetchCalendars();
+    },
+    goPrevMonth: function goPrevMonth() {
+      this.current--;
+      this.fetchCalendars();
+    },
+    goCurrentMonth: function goCurrentMonth() {
+      this.current = 0;
+      this.fetchCalendars();
     }
   },
   filters: {
@@ -27450,7 +27479,49 @@ var render = function() {
       "div",
       { staticClass: "l-inner" },
       [
-        _c("h1", { staticClass: "c-ttl-primary u-tac" }, [_vm._v("2019年度")]),
+        _c("h1", { staticClass: "c-ttl-primary u-tac u-mb15" }, [
+          _vm._v(
+            _vm._s(_vm.currentYear) + "年" + _vm._s(_vm.currentMonth) + "月"
+          )
+        ]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "c-books_nav" }, [
+          _c("li", { staticClass: "nav_item nav_item-prev" }, [
+            _c(
+              "button",
+              {
+                staticClass: "nav_link",
+                attrs: { disabled: _vm.yearMonth === "201904" },
+                on: { click: _vm.goPrevMonth }
+              },
+              [_vm._v("Prev")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav_item nav_item-current" }, [
+            _c(
+              "button",
+              {
+                staticClass: "nav_link",
+                attrs: { disabled: _vm.yearMonth === _vm.now },
+                on: { click: _vm.goCurrentMonth }
+              },
+              [_vm._v("Today")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav_item nav_item-next" }, [
+            _c(
+              "button",
+              {
+                staticClass: "nav_link",
+                attrs: { disabled: _vm.yearMonth === "205003" },
+                on: { click: _vm.goNextMonth }
+              },
+              [_vm._v("Next")]
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("Loader", {
           directives: [
@@ -27486,23 +27557,6 @@ var render = function() {
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "head_date" }, [
-                  _c(
-                    "div",
-                    { staticClass: "date_monthly" },
-                    _vm._l(_vm.monthly, function(value, key, index) {
-                      return _c(
-                        "div",
-                        {
-                          key: index,
-                          staticClass: "month",
-                          attrs: { "data-count": value }
-                        },
-                        [_c("span", [_vm._v(_vm._s(key))])]
-                      )
-                    }),
-                    0
-                  ),
-                  _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "date_days" },
