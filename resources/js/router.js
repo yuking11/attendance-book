@@ -6,6 +6,7 @@ import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
 import Member from './pages/Member.vue'
 import Category from './pages/Category.vue'
+import Privacy from './pages/Privacy.vue'
 import SystemError from './pages/errors/System.vue'
 import NotFound from './pages/errors/NotFound.vue'
 
@@ -42,6 +43,10 @@ const routes = [
   {
     path: '/500',
     component: SystemError
+  },
+  {
+    path: '/privacy',
+    component: Privacy
   },
   {
     path: '/member',

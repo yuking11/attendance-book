@@ -1,12 +1,24 @@
 <template>
   <footer class="l-footer" role="contentinfo">
     <div class="l-inner">
-      <a
-        href="#"
-        class="c-btn c-btn-link"
-        v-if="isLogin"
-        @click="logout"
-      >ログアウト</a>
+      <ul class="fnav">
+        <li
+          class="fnav_item"
+          v-if="isLogin"
+        >
+          <a
+            href="#"
+            class="fnav_link"
+            @click="logout"
+          >ログアウト</a>
+        </li>
+        <li class="fnav_item">
+          <router-link
+            class="fnav_link"
+            to="/privacy"
+          >プライバシーポリシー</router-link>
+        </li>
+      </ul>
       <p class="copy">(c) 2019 yuking11.net</p>
     </div>
   </footer>

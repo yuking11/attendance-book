@@ -1,0 +1,29 @@
+//=====================================================
+//
+// List Style
+//
+// =====================================================
+
+// list - default
+// ================================== //
+.c-list {
+
+  margin: $ct_gutter 0 0 .5em;
+  padding-left: 1em;
+
+  &-disc {
+    list-style: disc;
+  }// &-disc
+
+  &_item {
+  }// &_item
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-list

@@ -27,14 +27,14 @@
 // ================================== //
 .l-container {
 
-  padding-top: $ct_gutter * 2;
+  padding-top: $ct_gutter * 1.5;
 
   @include mq(sp, max, true) {
   }// @include mq(sp, max, true)
   @include mq(tab) {
   }// @include mq(tab)
   @include mq(pc) {
-    padding-top: $ct_gutter * 3;
+    padding-top: $ct_gutter * 2.5;
   }// @include mq(pc)
   @include mq(wide) {
   }// @include mq(wide)
@@ -112,3 +112,32 @@
     }// @include mq(wide)
   }// &-small
 }// .l-content
+
+
+// section
+// ================================== //
+.l-section {
+
+  + .l-section {
+    margin-top: $ct_gutter;
+  }// + .l-section
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+
+    + .l-section {
+      margin-top: $ct_gutter * 2;
+    }// + .l-section
+
+  }// @include mq(tab)
+  @include mq(pc) {
+
+    + .l-section {
+      margin-top: $ct_gutter * 2.5;
+    }// + .l-section
+
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .l-section

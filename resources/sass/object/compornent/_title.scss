@@ -26,9 +26,16 @@
 // Secondary
 // ================================== //
 .c-ttl-secondary {
+  @include mq(sp, max, true) {
+    font-size: fs(16);
+    margin-bottom: $ct_gutter;
+  }// @include mq(sp, max, true)
   @include mq(tab) {
+    font-size: fs(18);
+    margin-bottom: $ct_gutter * 1.5;
   }// @include mq(tab)
   @include mq(pc) {
+    font-size: fs(20);
   }// @include mq(pc)
   @include mq(wide) {
   }// @include mq(wide)
