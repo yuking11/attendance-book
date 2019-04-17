@@ -6,6 +6,7 @@ use App\Http\Requests\CreateMember;
 use App\Http\Requests\UpdateMember;
 use App\Http\Requests\DeleteMember;
 use App\Member;
+use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -108,11 +109,13 @@ class MemberController extends Controller
 
         try {
             $data = Auth::user()->members()->find($request->id);
+            $status = Status::where('member_id', $request->id);
 
             if (! $data) {
                 abort(404, 'メンバーが見つかりませんでした。');
             }
 
+            $status->delete();
             $data->delete();
             DB::commit();
         } catch (\Exception $exception) {
