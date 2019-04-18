@@ -3729,10 +3729,11 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
                 formData.append('calendar_id', Number(calendarId));
                 formData.append('member_id', Number(memberId));
                 formData.append('status', statusValue);
-                _context2.next = 7;
+                formData.append('date', this.yearMonth);
+                _context2.next = 8;
                 return this.$store.dispatch('top/status', formData);
 
-              case 7:
+              case 8:
                 RESPONSE = _context2.sent;
 
                 if (this.apiStatus) {
@@ -3741,7 +3742,7 @@ moment__WEBPACK_IMPORTED_MODULE_4___default.a.lang('ja', {
 
                 this.isLoading = false;
 
-              case 10:
+              case 11:
               case "end":
                 return _context2.stop();
             }

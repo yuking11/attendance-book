@@ -179,6 +179,7 @@ console.log(RESPONSE);
       formData.append('calendar_id', Number(calendarId))
       formData.append('member_id', Number(memberId))
       formData.append('status', statusValue)
+      formData.append('date', this.yearMonth)
 
       const RESPONSE = await this.$store.dispatch('top/status', formData)
 
