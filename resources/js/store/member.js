@@ -4,7 +4,8 @@ const state = {
   apiStatus: null,
   registerErrorMessages: null,
   updateErrorMessages: null,
-  deleteErrorMessages: null
+  deleteErrorMessages: null,
+  aggregateErrorMessages: null
 }
 
 const mutations = {
@@ -19,6 +20,9 @@ const mutations = {
   },
   setDeleteErrorMessages (state, messages) {
     state.deleteErrorMessages = messages
+  },
+  setAggregateErrorMessages (state, messages) {
+    state.aggregateErrorMessages = messages
   }
 }
 
@@ -41,6 +45,7 @@ const actions = {
       context.commit('error/setCode', RESPONSE.status, { root: true })
     }
   },
+
   // メンバー更新
   async update (context, data) {
     context.commit('setApiStatus', null)
@@ -58,6 +63,7 @@ const actions = {
       context.commit('error/setCode', RESPONSE.status, { root: true })
     }
   },
+
   // メンバー削除
   async delete (context, data) {
     context.commit('setApiStatus', null)
@@ -71,6 +77,24 @@ const actions = {
     context.commit('setApiStatus', false)
     if (RESPONSE.status === UNPROCESSABLE_ENTITY) {
       context.commit('setDeleteErrorMessages', RESPONSE.data.errors)
+    } else {
+      context.commit('error/setCode', RESPONSE.status, { root: true })
+    }
+  },
+
+  // ステータス集計
+  async aggregate (context, data) {
+    context.commit('setApiStatus', null)
+    const RESPONSE = await axios.post('/api/aggregate', data)
+
+    if (RESPONSE.status === OK) {
+      context.commit('setApiStatus', true)
+      return RESPONSE
+    }
+
+    context.commit('setApiStatus', false)
+    if (RESPONSE.status === UNPROCESSABLE_ENTITY) {
+      context.commit('setAggregateErrorMessages', RESPONSE.data.errors)
     } else {
       context.commit('error/setCode', RESPONSE.status, { root: true })
     }

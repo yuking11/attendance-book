@@ -129,7 +129,6 @@ class TopController extends Controller
     private function getMembers(String $sort = 'asc', Array $ids)
     {
         return Auth::user()
-                    // ->members()
                     ->categories()
                     ->with(['members' => function($query) use($ids) {
                         $query

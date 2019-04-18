@@ -121,7 +121,6 @@ export default {
       calendars: [],
       days: [],
       items: [],
-      statuses: [],
       current: 0,
     }
   },

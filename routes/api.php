@@ -23,7 +23,6 @@ Route::get('/index/{id}', 'TopController@index')->name('top.index')->where('id',
 
 // ステータス更新
 Route::post('/status', 'TopController@status')->name('top.status');
-// Route::post('/status/{id}', 'TopController@status')->name('top.status')->where('id', '[0-9]+');
 
 // プライバシー
 Route::get('/privacy', 'TopController@privacy')->name('top.privacy');
@@ -47,6 +46,10 @@ Route::post('/member/create', 'MemberController@create')->name('member.create');
 Route::put('/member/update', 'MemberController@update')->name('member.update');
 // メンバー削除
 Route::delete('/member/delete', 'MemberController@delete')->name('member.delete');
+
+// ステータス集積
+Route::get('/aggregate', 'AggregateController@index')->name('aggregate.index');
+Route::post('/aggregate', 'AggregateController@count')->name('aggregate.count');
 
 // カテゴリ表示
 Route::get('/category', 'CategoryController@index')->name('category.index');

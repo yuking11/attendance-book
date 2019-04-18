@@ -7,6 +7,7 @@ import Login from './pages/Login.vue'
 import Member from './pages/Member.vue'
 import Category from './pages/Category.vue'
 import Privacy from './pages/Privacy.vue'
+import Aggregate from './pages/Aggregate.vue'
 import SystemError from './pages/errors/System.vue'
 import NotFound from './pages/errors/NotFound.vue'
 
@@ -62,6 +63,17 @@ const routes = [
   {
     path: '/category',
     component: Category,
+    beforeEnter (to, from, next) {
+      if (!store.getters['auth/check']) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/aggregate',
+    component: Aggregate,
     beforeEnter (to, from, next) {
       if (!store.getters['auth/check']) {
         next('/login')
