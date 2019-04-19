@@ -10,8 +10,6 @@ $gutter: .5rem;
 $name_width: 8rem;
 $count_width: 5rem;
 $cell_width: 2rem;
-$name_color: #F8CE79;
-$count_color: #F8CE79;
 $border_color: #999;
 
 
@@ -103,7 +101,7 @@ $border_color: #999;
   }// .head_ttl
   .head_ttl {
     left: 0;
-    background-color: $name_color;
+    background-color: $color_orange_light;
     width: $name_width;
     span {
       padding: 0 $gutter;
@@ -112,7 +110,7 @@ $border_color: #999;
   .head_count {
     left: $name_width;
     justify-content: center;
-    background-color: $count_color;
+    background-color: $color_orange_light;
     width: $count_width;
   }// .head_count
   .head_date {

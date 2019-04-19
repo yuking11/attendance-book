@@ -119,7 +119,7 @@
 .l-section {
 
   + .l-section {
-    margin-top: $ct_gutter;
+    margin-top: $ct_gutter * 1.5;
   }// + .l-section
 
   @include mq(sp, max, true) {

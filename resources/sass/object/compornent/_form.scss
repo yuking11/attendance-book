@@ -51,6 +51,15 @@
     }// .line_item
   }// .c-form_line
 
+  .c-form-aggr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &_input {
+      width: 46%;
+    }// &_input
+  }// .c-form-aggr
+
   // size
   .c-form-wide {
     display: block;

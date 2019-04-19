@@ -1,5 +1,5 @@
 <template>
-  <div class="l-content">
+  <div class="l-content-small">
     <div class="l-inner">
 
       <h1 class="c-ttl-primary u-tac">集計</h1>
@@ -13,52 +13,76 @@
           >{{ msg[0] }}</li>
         </ul>
       </div>
-      <form
-        id="form-aggregate"
-        class="c-form"
-        @submit.prevent="count"
-      >
-        <datepicker
-          name="start"
-          v-model="search.start"
-          :language="ja"
-          :format="formatDate"
-        ></datepicker>
-        <datepicker
-          name="end"
-          v-model="search.end"
-          :language="ja"
-          :format="formatDate"
-        ></datepicker>
-        <button
-          type="submit"
-        >集計</button>
-      </form>
 
       <Loader v-show="isLoading" />
-      <div id="aggregate" ref="aggregate" v-show="! isLoading">
-        <table class="c-tbl">
-          <thead>
-            <tr>
-              <th>メンバー</th>
-              <th>{{ res.start | formatDateJp }}〜{{ res.end | formatDateJp }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-for="(category, i) in items">
+
+      <section
+        class="l-section"
+         v-show="! isLoading"
+      >
+        <h2 class="c-ttl-secondary">期間設定</h2>
+        <form
+          id="form-aggr"
+          class="c-form"
+          @submit.prevent="count"
+        >
+          <div class="c-form-aggr">
+            <datepicker
+              name="start"
+              v-model="search.start"
+              :language="ja"
+              :format="formatDate"
+              :wrapper-class="'c-form-aggr_item c-form-aggr_input'"
+              :input-class="'c-form_input c-form-wide'"
+            ></datepicker>
+            <span class="c-form-aggr_item">〜</span>
+            <datepicker
+              name="end"
+              v-model="search.end"
+              :language="ja"
+              :format="formatDate"
+              :wrapper-class="'c-form-aggr_item c-form-aggr_input'"
+              :input-class="'c-form_input c-form-wide'"
+            ></datepicker>
+          </div>
+          <div class="c-btn-wrap">
+            <button
+              type="submit"
+              class="c-btn c-btn-block c-btn-black"
+            >集計</button>
+          </div>
+        </form>
+      </section>
+
+      <section
+        class="l-section"
+        v-show="! isLoading"
+      >
+        <h2 class="c-ttl-secondary">{{ res.start | formatDateJp }}〜{{ res.end | formatDateJp }}の集計結果</h2>
+        <div id="aggregate" ref="aggregate">
+          <table class="c-tbl c-tbl-aggr">
+            <thead>
               <tr>
-                <th colspan="2">{{ category.name }}</th>
+                <th>メンバー</th>
+                <th>出席数</th>
               </tr>
-              <template v-for="(member, c) in category.members">
+            </thead>
+            <tbody>
+              <template v-for="(category, i) in items">
                 <tr>
-                  <th>{{ member.name }}</th>
-                  <td>{{ member.statuses_count }}</td>
+                  <th class="category" colspan="2">{{ category.name }}</th>
                 </tr>
+                <template v-for="(member, c) in category.members">
+                  <tr>
+                    <th class="name">{{ member.name }}</th>
+                    <td class="count">{{ member.statuses_count }}</td>
+                  </tr>
+                </template>
               </template>
-            </template>
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
     </div>
   </div>
