@@ -159,6 +159,7 @@ export default {
     },
     async count () {
       this.isLoading = true
+      this.clearMessage()
 
       const formData = new FormData()
       formData.append('start', this.search.start)
