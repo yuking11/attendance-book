@@ -274,7 +274,6 @@ export default {
     },
     deleteLine (index) {
       this.newMembers.splice(index, 1)
-      console.log('delete' + index)
     },
     reset () {
       this.newMembers = [{ name: null, category_id: '' }]
@@ -313,7 +312,6 @@ export default {
 
       if (result) {
         this.isLoading = true
-
         this.clearMessage()
 
         const DATA = {id: Number(member_id), name: member_name}

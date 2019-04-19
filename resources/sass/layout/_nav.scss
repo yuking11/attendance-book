@@ -258,6 +258,10 @@
 
     .gnav_ttl {
       height: $header_height_pc;
+      .gnav_link {
+        color: $font_color;
+        text-decoration: none;
+      }// .gnav_link
       + .gnav_list {
         margin-top: 0;
       }// + .gnav_list

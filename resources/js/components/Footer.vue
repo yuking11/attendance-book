@@ -12,6 +12,15 @@
             @click="logout"
           >ログアウト</a>
         </li>
+        <li
+          class="fnav_item"
+          v-if="isLogin"
+        >
+          <router-link
+            class="fnav_link"
+            to="/profile"
+          >アカウント</router-link>
+        </li>
         <li class="fnav_item">
           <router-link
             class="fnav_link"

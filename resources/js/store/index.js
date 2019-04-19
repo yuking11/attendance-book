@@ -6,6 +6,7 @@ import error from './error'
 import top from './top'
 import category from './category'
 import member from './member'
+import user from './user'
 
 Vue.use(Vuex)
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     error,
     top,
     category,
-    member
+    member,
+    user
   }
 })
 

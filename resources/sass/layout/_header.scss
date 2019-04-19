@@ -69,6 +69,9 @@
       }// &_menu
       &-user {
         margin-left: $ct_gutter;
+        .c-btn-link {
+          text-decoration: none;
+        }// .c-btn-link
       }// &-user
       .c-btn-link {
         padding-right: $ct_gutter / 2;

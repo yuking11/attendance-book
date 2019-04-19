@@ -156,7 +156,7 @@ export default {
       this.isLoading = true
 
       const RESPONSE = await axios.get('/api/index/' + this.yearMonth)
-console.log(RESPONSE);
+
       if (RESPONSE.status !== OK) {
         this.$store.commit('error/setCode', RESPONSE.status)
         return false
