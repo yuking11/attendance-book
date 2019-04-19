@@ -137,6 +137,7 @@
   thead {
     th {
       background-color: $color_orange_light;
+      padding: ($ct_gutter * .5) $ct_gutter;
       font-size: fs(14);
     }// th
   }// thead
