@@ -3067,7 +3067,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       tab: 1,
       loginForm: {
-        email: '',
+        name: '',
         password: ''
       },
       registerForm: {
@@ -26768,11 +26768,11 @@ var render = function() {
                 [
                   _vm.loginErrors
                     ? _c("div", { staticClass: "c-errors" }, [
-                        _vm.loginErrors.email
+                        _vm.loginErrors.name
                           ? _c(
                               "ul",
                               { staticClass: "c-errors_list" },
-                              _vm._l(_vm.loginErrors.email, function(msg) {
+                              _vm._l(_vm.loginErrors.name, function(msg) {
                                 return _c(
                                   "li",
                                   { key: msg, staticClass: "c-errors_item" },
@@ -26801,8 +26801,8 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _c("div", { staticClass: "c-form_line c-form_line-wrap" }, [
-                    _c("label", { attrs: { for: "login-email" } }, [
-                      _vm._v("メールアドレス")
+                    _c("label", { attrs: { for: "login-name" } }, [
+                      _vm._v("ユーザー名")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -26810,19 +26810,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.loginForm.email,
-                          expression: "loginForm.email"
+                          value: _vm.loginForm.name,
+                          expression: "loginForm.name"
                         }
                       ],
                       staticClass: "c-form_input c-form-wide",
-                      attrs: { type: "text", id: "login-email" },
-                      domProps: { value: _vm.loginForm.email },
+                      attrs: { type: "text", id: "login-name" },
+                      domProps: { value: _vm.loginForm.name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.loginForm, "email", $event.target.value)
+                          _vm.$set(_vm.loginForm, "name", $event.target.value)
                         }
                       }
                     })
@@ -26945,7 +26945,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "c-form_line c-form_line-wrap" }, [
                     _c("label", { attrs: { for: "username" } }, [
-                      _vm._v("名前")
+                      _vm._v("ユーザー名")
                     ]),
                     _vm._v(" "),
                     _c("input", {

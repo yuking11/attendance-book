@@ -151,7 +151,7 @@ return [
 
     'attributes' => [
         'user_id' => 'ユーザー',
-        'name' => 'お名前',
+        'name' => 'ユーザー名',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'agree' => '利用規約',
