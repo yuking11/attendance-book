@@ -31,10 +31,10 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::table('status', function (Blueprint $table) {
+        Schema::table('statuses', function (Blueprint $table) {
             $table->dropForeign(['member_id']);
             $table->dropForeign(['calendar_id']);
         });
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('statuses');
     }
 }

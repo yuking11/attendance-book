@@ -8,11 +8,49 @@
 // ================================== //
 $gutter: .5rem;
 $name_width: 8rem;
-$count_width: 4rem;
+$count_width: 5rem;
 $cell_width: 2rem;
-$name_color: #F8CE79;
-$count_color: #F8CE79;
 $border_color: #999;
+
+
+// nav
+// ================================== //
+.c-books_nav {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .nav_item {
+    min-width: 16px * 3;
+    margin: 0 $ct_gutter;
+    &-prev {
+      text-align: right;
+    }// &-prev
+    &-next {
+      text-align: left;
+    }// &-next
+  }// .nav_item
+
+  .nav_link {
+    color: $font_color;
+    &[disabled] {
+      color: $color_gray;
+      cursor: not-allowed;
+    }// &[disabled]
+  }// .nav_link
+
+  @include mq(sp, max, true) {
+    margin-bottom: $ct_gutter;
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+    margin-bottom: $ct_gutter * 1.5;
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-books_nav
 
 
 // books - sticky table
@@ -31,10 +69,16 @@ $border_color: #999;
   #c-books {
     display: block;
     position: relative;
-    width: $name_width + $count_width + ($cell_width * 365);
-    &[data-days="366"] {
-      width: $name_width + $count_width + ($cell_width * 366);
-    }// &[data-days="366"]
+    width: $name_width + $count_width + ($cell_width * 31);
+    &[data-days="28"] {
+      width: $name_width + $count_width + ($cell_width * 28);
+    }// &[data-days="28"]
+    &[data-days="29"] {
+      width: $name_width + $count_width + ($cell_width * 29);
+    }// &[data-days="29"]
+    &[data-days="30"] {
+      width: $name_width + $count_width + ($cell_width * 30);
+    }// &[data-days="30"]
   }// .c-books
 
   .c-books_head {
@@ -57,7 +101,7 @@ $border_color: #999;
   }// .head_ttl
   .head_ttl {
     left: 0;
-    background-color: $name_color;
+    background-color: $color_orange_light;
     width: $name_width;
     span {
       padding: 0 $gutter;
@@ -66,7 +110,7 @@ $border_color: #999;
   .head_count {
     left: $name_width;
     justify-content: center;
-    background-color: $count_color;
+    background-color: $color_orange_light;
     width: $count_width;
   }// .head_count
   .head_date {
@@ -129,7 +173,7 @@ $border_color: #999;
   }// .body_container
   .body_head {
     position: sticky;
-    top: 72px;
+    top: 43px;
     z-index: 20;
     background-color: $color_gray;
     width: 100%;
@@ -196,4 +240,13 @@ $border_color: #999;
   .today {
     background-color: #FFB !important;
   }// .today
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
 }// .c-books_wrap

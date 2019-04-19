@@ -125,3 +125,51 @@
   @include mq(wide) {
   }// @include mq(wide)
 }// .c-tbl
+
+
+// table - aggregate
+// ================================== //
+.c-tbl-aggr {
+
+  background-color: #999;
+  width: 100%;
+
+  thead {
+    th {
+      background-color: $color_orange_light;
+      padding: ($ct_gutter * .5) $ct_gutter;
+      font-size: fs(14);
+    }// th
+  }// thead
+
+  tbody {
+    font-size: fs(14);
+    th {
+    }// th
+    td {
+    }// td
+    .category {
+      background-color: $color_gray;
+      padding: ($ct_gutter * .5) $ct_gutter;
+      color: $color_white;
+      font-size: fs(14);
+    }// .category
+    .name {
+      width: 70%;
+      padding: ($ct_gutter * .5) $ct_gutter;
+    }// .name
+    .count {
+      padding: ($ct_gutter * .5) $ct_gutter;
+      font-weight: bold;
+    }// .count
+  }// tbody
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-tbl-aggr

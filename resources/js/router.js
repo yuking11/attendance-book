@@ -4,8 +4,10 @@ import VueRouter from 'vue-router'
 // ページコンポーネントをインポートする
 import Top from './pages/Top.vue'
 import Login from './pages/Login.vue'
+import Profile from './pages/Profile.vue'
 import Member from './pages/Member.vue'
 import Category from './pages/Category.vue'
+import Aggregate from './pages/Aggregate.vue'
 import Privacy from './pages/Privacy.vue'
 import SystemError from './pages/errors/System.vue'
 import NotFound from './pages/errors/NotFound.vue'
@@ -41,12 +43,15 @@ const routes = [
     }
   },
   {
-    path: '/500',
-    component: SystemError
-  },
-  {
-    path: '/privacy',
-    component: Privacy
+    path: '/profile',
+    component: Profile,
+    beforeEnter (to, from, next) {
+      if (!store.getters['auth/check']) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/member',
@@ -69,6 +74,25 @@ const routes = [
         next()
       }
     }
+  },
+  {
+    path: '/aggregate',
+    component: Aggregate,
+    beforeEnter (to, from, next) {
+      if (!store.getters['auth/check']) {
+        next('/login')
+      } else {
+        next()
+      }
+    }
+  },
+  {
+    path: '/privacy',
+    component: Privacy
+  },
+  {
+    path: '/500',
+    component: SystemError
   },
   {
     path: '*',

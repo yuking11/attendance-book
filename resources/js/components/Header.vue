@@ -21,7 +21,16 @@
               カテゴリ
             </RouterLink>
           </li>
-          <li class="navbar_item navbar-user"><i class="fas fa-user u-mr5"></i>{{ username }}</li>
+          <li class="navbar_item">
+            <RouterLink class="c-btn c-btn-link" to="/aggregate">
+              集計
+            </RouterLink>
+          </li>
+          <li class="navbar_item navbar-user">
+            <RouterLink class="c-btn c-btn-link" to="/profile">
+              <i class="fas fa-user u-mr5"></i>{{ user.name }}
+            </RouterLink>
+          </li>
         </ul>
         <ul v-else class="navbar_menu">
           <li class="navbar_item">
@@ -45,7 +54,7 @@ export default {
     }),
     ...mapGetters({
       isLogin: 'auth/check',
-      username: 'auth/username'
+      user: 'auth/user'
     })
   },
   methods: {

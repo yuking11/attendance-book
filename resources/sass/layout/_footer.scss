@@ -16,12 +16,11 @@
 
   .fnav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     &_item {
-      &:not(:first-child) {
-        margin-left: $ct_gutter;
-      }// &:not(:first-child)
+      margin: ($ct_gutter * .25) ($ct_gutter * .5);
     }// &_item
     &_link {
       color: $font_color;

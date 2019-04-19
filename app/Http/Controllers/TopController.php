@@ -26,47 +26,44 @@ class TopController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param  int  $id
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($id = null)
     {
-        $now = Carbon::now();
-        $year = $now->subMonthsNoOverflow(3)->year;
-        $start = $year . '-04-01';
-        $end = $year + 1 . '-03-31';
+        $calendars = $this->getCalendars($id);
 
-        $calendars = Calendar::whereBetween('date', [$start, $end])->get();
-        $days = Calendar::whereBetween('date', [$start, $end])->count();
         $data = [
-          'year' => $year,
-          'days' => $days,
-          'calendar' => $calendars,
-          'data' => $this->getMembers(),
-          'statuses' => $this->getStatuses(),
+          'days' => $calendars->count(),
+          'calendar' => $calendars->get(),
+          'data' => $this->getMembers('asc', $calendars->get(['id'])->toArray()),
         ];
         return $data;
     }
 
     /**
      * ステータス受け取り
-     * @param UpdateStatus $request
+     * @param UpdateStatus|$request
      * @return \Illuminate\Http\Response
      */
     public function status(UpdateStatus $request)
     {
+        $id = $request->date;
+        unset($request->date);
         if ($request->status) {
-          return $this->update($request);
+          return $this->update($request, $id);
         } else {
-          return $this->delete($request);
+          return $this->delete($request, $id);
         }
     }
 
     /**
      * ステータス更新
-     * @param UpdateStatus $request
+     * @param UpdateStatus|$request
+     * @param String|$id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateStatus $request)
+    public function update(UpdateStatus $request, String $id)
     {
         DB::beginTransaction();
 
@@ -86,17 +83,19 @@ class TopController extends Controller
             throw $exception;
         }
 
+        $ids = $this->getCalendars($id)->get(['id'])->toArray();
         // リソースの更新なので
         // レスポンスコードは200(OK)を返却する
-        return response($this->getMembers(), 200);
+        return response($this->getMembers('asc', $ids), 200);
     }
 
     /**
      * ステータス削除
-     * @param DeleteMember $request
+     * @param DeleteMember|$request
+     * @param String|$id
      * @return \Illuminate\Http\Response
      */
-    public function delete(UpdateStatus $request)
+    public function delete(UpdateStatus $request, String $id)
     {
         DB::beginTransaction();
 
@@ -115,24 +114,28 @@ class TopController extends Controller
             throw $exception;
         }
 
+        $ids = $this->getCalendars($id)->get(['id'])->toArray();
         // リソースの更新なので
         // レスポンスコードは200(OK)を返却する
-        return response($this->getMembers(), 200);
+        return response($this->getMembers('asc', $ids), 200);
     }
 
     /**
      * メンバー取得
      * @param  String|string
+     * @param  String|string
      * @return Member
      */
-    private function getMembers(String $sort = 'asc')
+    private function getMembers(String $sort = 'asc', Array $ids)
     {
         return Auth::user()
-                    // ->members()
                     ->categories()
-                    ->with(['members' => function($query) {
+                    ->with(['members' => function($query) use($ids) {
                         $query
-                          ->with(['statuses'])
+                          ->with(['statuses' => function($query) use($ids) {
+                            $query->whereIn('calendar_id', $ids);
+                          }])
+                          // ->with(['statuses'])
                           ->orderBy('sort', 'asc')
                           ->orderBy('name', 'asc');
                     }])
@@ -142,14 +145,17 @@ class TopController extends Controller
     }
 
     /**
-     * ステータス取得
+     * 当月分カレンダーID取得
      * @param  String|string
-     * @return Status
+     * @return Array
      */
-    private function getStatuses()
+    private function getCalendars(String $id)
     {
-        return Auth::user()
-                    ->statuses()
-                    ->get(['calendar_id', 'member_id', 'status']);
+        $year = substr($id, 0, 4);
+        $month = substr($id, 4, 2);
+        $start = $year . '-' . $month . '-01';
+        $end = $year . '-' . $month . '-31';
+
+        return Calendar::whereBetween('date', [$start, $end]);
     }
 }

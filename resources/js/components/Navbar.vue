@@ -23,6 +23,16 @@
             </RouterLink>
           </li>
           <li class="gnav_item">
+            <RouterLink class="gnav_link" to="/aggregate" @click.native="menuOff()">
+              集計
+            </RouterLink>
+          </li>
+          <li class="gnav_item">
+            <RouterLink class="gnav_link" to="/profile" @click.native="menuOff()">
+              アカウント
+            </RouterLink>
+          </li>
+          <li class="gnav_item">
             <a href="#" class="gnav_link" @click="logout">
               ログアウト
             </a>

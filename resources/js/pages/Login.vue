@@ -24,16 +24,16 @@
           >
             <form class="c-form" @submit.prevent="login">
               <div v-if="loginErrors" class="c-errors">
-                <ul v-if="loginErrors.email" class="c-errors_list">
-                  <li v-for="msg in loginErrors.email" :key="msg" class="c-errors_item">{{ msg }}</li>
+                <ul v-if="loginErrors.name" class="c-errors_list">
+                  <li v-for="msg in loginErrors.name" :key="msg" class="c-errors_item">{{ msg }}</li>
                 </ul>
                 <ul v-if="loginErrors.password" class="c-errors_list">
                   <li v-for="msg in loginErrors.password" :key="msg" class="c-errors_item">{{ msg }}</li>
                 </ul>
               </div>
               <div class="c-form_line c-form_line-wrap">
-                <label for="login-email">メールアドレス</label>
-                <input type="text" class="c-form_input c-form-wide" id="login-email" v-model="loginForm.email">
+                <label for="login-name">ユーザー名</label>
+                <input type="text" class="c-form_input c-form-wide" id="login-name" v-model="loginForm.name">
               </div>
               <div class="c-form_line c-form_line-wrap">
                 <label for="login-password">パスワード</label>
@@ -61,7 +61,7 @@
                 </ul>
               </div>
               <div class="c-form_line c-form_line-wrap">
-                <label for="username">名前</label>
+                <label for="username">ユーザー名</label>
                 <input type="text" class="c-form_input c-form-wide" id="username" v-model="registerForm.name">
               </div>
               <div class="c-form_line c-form_line-wrap">
@@ -96,7 +96,7 @@ export default {
     return {
       tab: 1,
       loginForm: {
-        email: '',
+        name: '',
         password: ''
       },
       registerForm: {

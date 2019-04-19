@@ -34,7 +34,7 @@
   @include mq(tab) {
   }// @include mq(tab)
   @include mq(pc) {
-    padding-top: $ct_gutter * 2.5;
+    padding-top: $ct_gutter * 2;
   }// @include mq(pc)
   @include mq(wide) {
   }// @include mq(wide)
@@ -119,7 +119,7 @@
 .l-section {
 
   + .l-section {
-    margin-top: $ct_gutter;
+    margin-top: $ct_gutter * 1.5;
   }// + .l-section
 
   @include mq(sp, max, true) {

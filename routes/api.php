@@ -18,7 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // トップ
-Route::get('/index', 'TopController@index')->name('top.index');
+// Route::get('/index', 'TopController@index')->name('top.index');
+Route::get('/index/{id}', 'TopController@index')->name('top.index')->where('id', '[0-9]+');
+
+// プロフィール
+Route::get('/profile', 'UserController@index')->name('profile.index');
+// アカウント更新
+Route::put('/profile/update', 'UserController@update')->name('profile.update');
+// アカウント削除
+Route::delete('/profile/delete', 'UserController@delete')->name('profile.delete');
+
 // ステータス更新
 Route::post('/status', 'TopController@status')->name('top.status');
 
@@ -44,6 +53,10 @@ Route::post('/member/create', 'MemberController@create')->name('member.create');
 Route::put('/member/update', 'MemberController@update')->name('member.update');
 // メンバー削除
 Route::delete('/member/delete', 'MemberController@delete')->name('member.delete');
+
+// ステータス集計
+Route::get('/aggregate', 'AggregateController@index')->name('aggregate.index');
+Route::post('/aggregate', 'AggregateController@count')->name('aggregate.count');
 
 // カテゴリ表示
 Route::get('/category', 'CategoryController@index')->name('category.index');

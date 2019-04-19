@@ -27,6 +27,7 @@ class UpdateStatus extends FormRequest
             'calendar_id' => 'required|numeric',
             'member_id' => 'required|numeric',
             'status' => 'required|numeric',
+            'date' => 'required',
         ];
     }
 
@@ -41,6 +42,7 @@ class UpdateStatus extends FormRequest
             'calendar_id' => '日付',
             'member_id' => 'メンバー',
             'status' => '状態',
+            'date' => '日時',
         ];
     }
 
@@ -58,6 +60,7 @@ class UpdateStatus extends FormRequest
             'member_id.numeric' => ':attributeは数値です。',
             'status.required' => ':attributeは入力必須です。',
             'status.numeric' => ':attributeは数値です。',
+            'date.required' => ':attributeは入力必須です。',
         ];
     }
 }

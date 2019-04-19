@@ -2,80 +2,96 @@
   <div class="l-content">
     <div class="l-inner">
 
-      <h1 class="c-ttl-primary u-tac">2019年度</h1>
+      <h1 class="c-ttl-primary u-tac u-mb15">{{ currentYear }}年{{ currentMonth }}月</h1>
 
-    <Loader v-show="isLoading" />
-    <div id="c-books_container" ref="books_container" class="c-books_wrap" v-show="! isLoading">
-      <div id="c-books" :data-days="days">
-        <div class="c-books_head">
-          <div class="head_ttl"><span>名前</span></div>
-          <div class="head_count"><span>出席数</span></div>
-          <div class="head_date">
-            <div class="date_monthly">
-              <div
-                class="month"
-                v-for="(value, key, index) in monthly"
-                :key="index"
-                :data-count="value"
-              ><span>{{ key }}</span></div>
-            </div>
-            <div class="date_days">
-              <div
-                v-for="(calendar, index) in calendars"
-                class="day"
-                v-bind:class="classWeekday(calendar.date)"
-              >
-                <div>{{ calendar.date | days }}</div>
-                <div>{{ calendar.date | weekdays }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="c-books_body">
-          <template v-for="(category, i) in items">
-            <div
-              class="body_container"
-              v-if="category.members.length"
-              :key="category.id"
-            >
-              <div class="body_head"><span>{{ category.name }}</span></div>
-              <div
-                class="body_line"
-                v-for="(member, n) in category.members"
-                :key="member.id"
-              >
-                <div class="body_name"><span>{{ member.name }}</span></div>
-                <div class="body_count"><span>{{ member.statuses.length }}</span></div>
-                <div class="body_days c-form">
-                  <template
-                    v-for="(calendar, c) in calendars"
-                  >
-                    <div
-                      class="body_cell"
-                      v-bind:class="classWeekday(calendar.date)"
-                      :key="calendar.date"
-                    >
-                      <button
-                        type="button"
-                        class=""
-                        v-if="isAttendance(member.statuses, calendar.id)"
-                        @click="update(calendar.id, member.id, 0)"
-                      ><i class="fas fa-check-square"></i></button>
-                      <button
-                        type="button"
-                        class=""
-                        v-else
-                        @click="update(calendar.id, member.id, 1)"
-                      ><i class="far fa-square"></i></button>
-                    </div>
-                  </template>
+      <ul class="c-books_nav">
+        <li class="nav_item nav_item-prev">
+          <button
+            class="nav_link"
+            v-bind:disabled="yearMonth === '201904'"
+            @click="goPrevMonth"
+            >Prev</button>
+        </li>
+        <li class="nav_item nav_item-current">
+          <button
+            class="nav_link"
+            v-bind:disabled="yearMonth === now"
+            @click="goCurrentMonth"
+            >Today</button>
+        </li>
+        <li class="nav_item nav_item-next">
+          <button
+            class="nav_link"
+            v-bind:disabled="yearMonth === '205003'"
+            @click="goNextMonth"
+          >Next</button>
+        </li>
+      </ul>
+
+      <Loader v-show="isLoading" />
+      <div id="c-books_container" ref="books_container" class="c-books_wrap" v-show="! isLoading">
+        <div id="c-books" :data-days="days">
+          <div class="c-books_head">
+            <div class="head_ttl"><span>名前</span></div>
+            <div class="head_count"><span>出席数</span></div>
+            <div class="head_date">
+              <div class="date_days">
+                <div
+                  class="day"
+                  v-for="(calendar, index) in calendars"
+                  v-bind:class="classWeekday(calendar.date)"
+                >
+                  <div>{{ calendar.date | days }}</div>
+                  <div>{{ calendar.date | weekdays }}</div>
                 </div>
               </div>
             </div>
-          </template>
+          </div>
+          <div class="c-books_body">
+            <template v-for="(category, i) in items">
+              <div
+                class="body_container"
+                v-if="category.members.length"
+                :key="category.id"
+              >
+                <div class="body_head"><span>{{ category.name }}</span></div>
+                <div
+                  class="body_line"
+                  v-for="(member, n) in category.members"
+                  :key="member.id"
+                >
+                  <div class="body_name"><span>{{ member.name }}</span></div>
+                  <div class="body_count"><span>{{ member.statuses.length }}</span></div>
+                  <div class="body_days c-form">
+                    <template
+                      v-for="(calendar, c) in calendars"
+                    >
+                      <div
+                        class="body_cell"
+                        v-bind:class="classWeekday(calendar.date)"
+                        :key="calendar.date"
+                      >
+                        <button
+                          type="button"
+                          class=""
+                          v-if="isAttendance(member.statuses, calendar.id)"
+                          @click="update(calendar.id, member.id, 0)"
+                        ><i class="fas fa-check-square"></i></button>
+                        <button
+                          type="button"
+                          class=""
+                          v-else
+                          @click="update(calendar.id, member.id, 1)"
+                        ><i class="far fa-square"></i></button>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
         </div>
       </div>
-    </div>
 
     </div>
   </div>
@@ -96,14 +112,16 @@ export default {
   components: {
     Loader
   },
+  props: {
+    id: null
+  },
   data () {
     return {
       isLoading: false,
       calendars: [],
-      monthly: [],
       days: [],
       items: [],
-      statuses: [],
+      current: 0,
     }
   },
   computed: {
@@ -114,6 +132,21 @@ export default {
     ...mapGetters({
       userId: 'auth/userid'
     }),
+    now() {
+      return moment().format('YYYYMM')
+    },
+    currentMoment() {
+      return moment().add(this.current, 'months')
+    },
+    currentYear() {
+      return this.currentMoment.format('YYYY')
+    },
+    currentMonth() {
+      return this.currentMoment.format('MM')
+    },
+    yearMonth() {
+      return this.currentYear + this.currentMonth
+    },
   },
   created () {
     this.fetchCalendars()
@@ -122,7 +155,7 @@ export default {
     async fetchCalendars () {
       this.isLoading = true
 
-      const RESPONSE = await axios.get('/api/index')
+      const RESPONSE = await axios.get('/api/index/' + this.yearMonth)
 
       if (RESPONSE.status !== OK) {
         this.$store.commit('error/setCode', RESPONSE.status)
@@ -132,23 +165,6 @@ export default {
       this.items = RESPONSE.data.data
       this.calendars = RESPONSE.data.calendar
       this.days = RESPONSE.data.days
-      this.monthly = {
-        '4月': 30,
-        '5月': 31,
-        '6月': 30,
-        '7月': 31,
-        '8月': 31,
-        '9月': 30,
-        '10月': 31,
-        '11月': 30,
-        '12月': 31,
-        '1月': 31,
-        '2月': 28,
-        '3月': 31
-      }
-      if (this.days === 366) {
-        this.monthly['2月'] = 29
-      }
       const TODAY = moment().format('YYYY-MM-DD 00:00:00')
       const count = moment(this.calendars[0].date).diff(TODAY, 'days')
       this.$nextTick(() => this.$refs.books_container.scrollLeft = 32 * -count)
@@ -162,6 +178,7 @@ export default {
       formData.append('calendar_id', Number(calendarId))
       formData.append('member_id', Number(memberId))
       formData.append('status', statusValue)
+      formData.append('date', this.yearMonth)
 
       const RESPONSE = await this.$store.dispatch('top/status', formData)
 
@@ -186,7 +203,19 @@ export default {
     },
     clearMessage () {
       this.$store.commit('top/setUpdateErrorMessages', null)
-    }
+    },
+    goNextMonth() {
+      this.current++
+      this.fetchCalendars()
+    },
+    goPrevMonth() {
+      this.current--
+      this.fetchCalendars()
+    },
+    goCurrentMonth() {
+      this.current = 0
+      this.fetchCalendars()
+    },
   },
   filters: {
     month (date) {
