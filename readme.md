@@ -13,6 +13,14 @@
 
 Web上で出席簿を作成／管理できます（そのまんま
 
+## インストール
+
+Laravelの環境構築はググってください。
+
+1. `compsoer install`
+1. `php artisan migrate`
+1. `php artisan db:seeder`
+
 ## 使い方
 
 1. ユーザー登録する  
