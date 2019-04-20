@@ -36,12 +36,11 @@ class CategoryController extends Controller
     public function create(CreateCategory $request)
     {
         $user = Auth::user();
-        $requests = $request->all();
 
         DB::beginTransaction();
 
         try {
-            foreach ($requests as $item) {
+            foreach ($request->data as $item) {
                 $data = new Category;
                 $item['user_id'] = $user->id;
                 $data->fill($item)->save();
@@ -65,12 +64,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategory $request)
     {
-        $requests = $request->all();
-
         DB::beginTransaction();
 
         try {
-            foreach ($requests as $item) {
+            foreach ($request->data as $item) {
                 $data = Auth::user()->categories()->find($item['id']);
                 $data->fill($item)->save();
             }

@@ -39,14 +39,12 @@ class MemberController extends Controller
      */
     public function create(CreateMember $request)
     {
-
         $user = Auth::user();
-        $requests = $request->all();
 
         DB::beginTransaction();
 
         try {
-            foreach ($requests as $item) {
+            foreach ($request->data as $item) {
                 $data = new Member;
                 $item['user_id'] = $user->id;
                 $data->fill($item)->save();
@@ -73,12 +71,10 @@ class MemberController extends Controller
      */
     public function update(UpdateMember $request)
     {
-        $requests = $request->all();
-
         DB::beginTransaction();
 
         try {
-            foreach ($requests as $item) {
+            foreach ($request->data as $item) {
                 unset($item['laravel_through_key']);
                 $data = Auth::user()->members()->find($item['id']);
                 $data->fill($item)->save();
@@ -92,10 +88,10 @@ class MemberController extends Controller
         // リソースの更新なので
         // レスポンスコードは200(OK)を返却する
         return response()
-                ->json([
-                  'member' => $this->getMembers(),
-                  'category' => $this->getCategories()
-                ], 200);
+              ->json([
+                'member' => $this->getMembers(),
+                'category' => $this->getCategories()
+              ], 200);
     }
 
     /**

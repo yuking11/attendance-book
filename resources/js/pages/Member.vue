@@ -47,7 +47,7 @@
                 <ul class="c-form_list">
                   <li
                     class="c-form_line"
-                    v-for="(item, index) in newMembers"
+                    v-for="(item, index) in newMembers.data"
                     :key="index"
                   >
                     <input
@@ -81,7 +81,7 @@
                     <button
                       type="button"
                       class="c-form_del line_item"
-                      v-bind:disabled="newMembers.length <= 1"
+                      v-bind:disabled="newMembers.data.length <= 1"
                       @click="deleteLine(index)"
                     ><i class="fas fa-minus-square"></i></button>
                   </li>
@@ -116,7 +116,7 @@
               </ul>
             </div>
             <Loader v-show="isLoading" />
-            <template v-if="! members.length">
+            <template v-if="! members.data.length">
               <p><a href="#" @click="tab = 1">メンバー</a>が登録されていません。</p>
             </template>
             <template v-else>
@@ -134,13 +134,13 @@
                 </div>
                 <draggable
                   class="c-form_list"
-                  v-model="members"
+                  v-model="members.data"
                   tag="ul"
                   @end="onEnd"
                 >
                   <li
                     class="c-form_line c-form_line-drag"
-                    v-for="(item, index) in members"
+                    v-for="(item, index) in members.data"
                   >
                     <input
                       type="hidden"
@@ -214,19 +214,23 @@ export default {
     return {
       tab: 1,
       isLoading: false,
-      newMembers: [
-        {
-          name: null,
-          category_id: ''
-        }
-      ],
-      members: [
-        {
-          id: null,
-          name: null,
-          category_id: ''
-        }
-      ],
+      newMembers: {
+        data: [
+          {
+            name: null,
+            category_id: ''
+          }
+        ]
+      },
+      members: {
+        data: [
+          {
+            id: null,
+            name: null,
+            category_id: ''
+          }
+        ]
+      },
       categories: [],
       success: null
     }
@@ -257,7 +261,6 @@ export default {
     },
     async fetchMembers () {
       this.isLoading = true
-      this.members = []
       const RESPONSE = await axios.get('/api/member')
 
       if (RESPONSE.status !== OK) {
@@ -265,18 +268,18 @@ export default {
         this.isLoading = false
         return false
       }
-      this.members = RESPONSE.data.member
+      this.members.data = RESPONSE.data.member
       this.isLoading = false
     },
     addLine (index) {
-      this.newMembers.push({ name: null, category_id: '' })
+      this.newMembers.data.push({ name: null, category_id: '' })
       this.$nextTick(() => this.$refs['member_' + (++index)]['0'].focus())
     },
     deleteLine (index) {
-      this.newMembers.splice(index, 1)
+      this.newMembers.data.splice(index, 1)
     },
     reset () {
-      this.newMembers = [{ name: null, category_id: '' }]
+      this.newMembers.data = [{ name: null, category_id: '' }]
       this.clearMessage()
     },
     async regist () {
@@ -288,7 +291,7 @@ export default {
       if (this.apiStatus) {
         this.reset()
         this.success = 'メンバーを追加しました。'
-        this.members = RESPONSE.data.member
+        this.members.data = RESPONSE.data.member
         this.tab = 2
       }
 
@@ -302,7 +305,7 @@ export default {
 
       if (this.apiStatus) {
         this.success = 'メンバーを更新しました。'
-        this.members = RESPONSE.data.member
+        this.members.data = RESPONSE.data.member
       }
 
       this.isLoading = false
@@ -330,7 +333,7 @@ export default {
     onEnd (e) {
       let line = document.querySelectorAll('#form-edit .c-form_line');
       line.forEach( (el, index) => {
-        this.members[index].sort = index
+        this.members.data[index].sort = index
       })
     },
     clearMessage () {

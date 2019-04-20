@@ -42,12 +42,12 @@
               <ul class="c-form_list">
                 <li
                   class="c-form_line"
-                  v-for="(item, index) in newCategories"
+                  v-for="(item, index) in newCategories.data"
                   :key="index"
                 >
                   <input
                     type="text"
-                    name="category[][name]"
+                    name="data[][name]"
                     class="c-form_input c-form-wide line_item"
                     required
                     placeholder="カテゴリ名"
@@ -62,7 +62,7 @@
                   <button
                     type="button"
                     class="c-form_del line_item"
-                    v-bind:disabled="newCategories.length <= 1"
+                    v-bind:disabled="newCategories.data.length <= 1"
                     @click="deleteLine(index)"
                   ><i class="fas fa-minus-square"></i></button>
                 </li>
@@ -106,7 +106,7 @@
               </template>
             </div>
             <Loader v-show="isLoading" />
-            <template v-if="! categories.length">
+            <template v-if="! categories.data.length">
               <p v-show="! isLoading"><a href="#" @click="tab = 1">カテゴリ</a>が登録されていません。</p>
             </template>
             <template v-else>
@@ -123,30 +123,30 @@
                 </div>
                 <draggable
                   class="c-form_list"
-                  v-model="categories"
+                  v-model="categories.data"
                   tag="ul"
                   @end="onEnd"
                 >
                   <li
                     class="c-form_line c-form_line-drag"
-                    v-for="(item, index) in categories"
+                    v-for="(item, index) in categories.data"
                   >
                     <input
                       type="hidden"
-                      name="[][id]"
+                      name="data[][id]"
                       class="category_id"
                       v-model="item.id"
                     >
                     <input
                       type="text"
-                      name="[][name]"
+                      name="data[][name]"
                       class="c-form_input c-form-wide line_item"
                       required
                       v-model="item.name"
                     >
                     <input
                       type="number"
-                      name="[][sort]"
+                      name="data[][sort]"
                       class="c-form_input c-form_sort line_item"
                       min="0"
                       v-model="item.sort"
@@ -191,18 +191,18 @@ export default {
     return {
       tab: 1,
       isLoading: false,
-      newCategories: [
-        {
-          name: null
-        }
-      ],
-      categories: [
-        {
-          id: null,
-          name: null,
-          sort: null
-        }
-      ],
+      newCategories: {
+        data: [ { name: null } ]
+      },
+      categories: {
+        data: [
+          {
+            id: null,
+            name: null,
+            sort: null
+          }
+        ]
+      },
       success: null
     }
   },
@@ -221,7 +221,6 @@ export default {
   methods: {
     async fetchCategories () {
       this.isLoading = true
-      this.categories = []
 
       const RESPONSE = await axios.get('/api/category')
 
@@ -230,18 +229,18 @@ export default {
         this.isLoading = false
         return false
       }
-      this.categories = RESPONSE.data
+      this.categories.data = RESPONSE.data
       this.isLoading = false
     },
     addLine (index) {
-      this.newCategories.push({ name: null })
+      this.newCategories.data.push({ name: null })
       this.$nextTick(() => this.$refs['category_' + (++index)]['0'].focus())
     },
     deleteLine (index) {
-      this.newCategories.splice(index, 1)
+      this.newCategories.data.splice(index, 1)
     },
     reset () {
-      this.newCategories = [{ name: null }]
+      this.newCategories.data = [{ name: null }]
       this.clearMessage()
     },
     async regist () {
@@ -253,7 +252,7 @@ export default {
       if (this.apiStatus) {
         this.reset()
         this.success = 'カテゴリを追加しました。'
-        this.categories = RESPONSE.data
+        this.categories.data = RESPONSE.data
         this.tab = 2
       }
 
@@ -267,7 +266,7 @@ export default {
 
       if (this.apiStatus) {
         this.success = 'カテゴリを更新しました。'
-        this.categories = RESPONSE.data
+        this.categories.data = RESPONSE.data
       }
 
       this.isLoading = false
@@ -296,7 +295,7 @@ export default {
     onEnd (e) {
       let line = document.querySelectorAll('#form-edit .c-form_line');
       line.forEach( (el, index) => {
-        this.categories[index].sort = index
+        this.categories.data[index].sort = index
       })
     },
     clearMessage () {

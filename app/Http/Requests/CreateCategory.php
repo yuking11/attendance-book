@@ -24,7 +24,7 @@ class CreateCategory extends FormRequest
     public function rules()
     {
         return [
-            '*.name' => 'required',
+            'data.*.name' => 'required',
         ];
     }
 
@@ -36,7 +36,7 @@ class CreateCategory extends FormRequest
     public function attributes()
      {
          return [
-             '*.name' => 'カテゴリー名',
+             'data.*.name' => 'カテゴリー名',
          ];
      }
 
@@ -48,7 +48,7 @@ class CreateCategory extends FormRequest
      public function messages()
      {
          return [
-             '*.name.required' => ':attributeは入力必須です。',
+             'data.*.name.required' => ':attributeは入力必須です。',
          ];
      }
 }

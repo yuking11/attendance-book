@@ -24,8 +24,8 @@ class CreateMember extends FormRequest
     public function rules()
     {
         return [
-            '*.name' => 'required',
-            '*.category_id' => 'required|numeric',
+            'data.*.name' => 'required',
+            'data.*.category_id' => 'required|numeric',
         ];
     }
 
@@ -37,8 +37,8 @@ class CreateMember extends FormRequest
     public function attributes()
      {
          return [
-             '*.name' => '名前',
-             '*.category_id' => 'カテゴリ',
+             'data.*.name' => '名前',
+             'data.*.category_id' => 'カテゴリ',
          ];
      }
 
@@ -50,9 +50,9 @@ class CreateMember extends FormRequest
      public function messages()
      {
          return [
-             '*.name.required' => ':attributeは入力必須です。',
-             '*.category_id.required' => ':attributeは選択必須です。',
-             '*.category_id.numeric' => ':attributeは数値で入力します。',
+             'data.*.name.required' => ':attributeは入力必須です。',
+             'data.*.category_id.required' => ':attributeは選択必須です。',
+             'data.*.category_id.numeric' => ':attributeは数値で入力します。',
          ];
      }
 }

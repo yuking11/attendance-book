@@ -24,10 +24,10 @@ class UpdateMember extends FormRequest
     public function rules()
     {
         return [
-            '*.id' => 'required|numeric',
-            '*.name' => 'required',
-            '*.category_id' => 'required|numeric',
-            '*.sort' => 'nullable|numeric',
+            'data.*.id' => 'required|numeric',
+            'data.*.name' => 'required',
+            'data.*.category_id' => 'required|numeric',
+            'data.*.sort' => 'nullable|numeric',
         ];
     }
 
@@ -39,10 +39,10 @@ class UpdateMember extends FormRequest
     public function attributes()
     {
         return [
-            '*.id' => 'ID',
-            '*.name' => '名前',
-            '*.category_id' => 'カテゴリ',
-            '*.sort' => '表示順',
+            'data.*.id' => 'ID',
+            'data.*.name' => '名前',
+            'data.*.category_id' => 'カテゴリ',
+            'data.*.sort' => '表示順',
         ];
     }
 
@@ -54,12 +54,12 @@ class UpdateMember extends FormRequest
     public function messages()
     {
         return [
-            '*.id.required' => ':attributeは入力必須です。',
-            '*.id.numeric' => ':attributeは数値です。',
-            '*.name.required' => ':attributeは入力必須です。',
-            '*.category_id.required' => ':attributeは入力必須です。',
-            '*.category_id.numeric' => ':attributeは数値で入力します。',
-            '*.sort.numeric' => ':attributeは数値で入力します。',
+            'data.*.id.required' => ':attributeは入力必須です。',
+            'data.*.id.numeric' => ':attributeは数値です。',
+            'data.*.name.required' => ':attributeは入力必須です。',
+            'data.*.category_id.required' => ':attributeは入力必須です。',
+            'data.*.category_id.numeric' => ':attributeは数値で入力します。',
+            'data.*.sort.numeric' => ':attributeは数値で入力します。',
         ];
     }
 }
