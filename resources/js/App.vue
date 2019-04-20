@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { NOT_FOUND, UNAUTHORIZED, INTERNAL_SERVER_ERROR } from './util'
+import { FORBIDDEN, NOT_FOUND, UNAUTHORIZED, INTERNAL_SERVER_ERROR } from './util'
 import Header from './components/Header.vue'
 import Navbar from './components/Navbar.vue'
 import Footer from './components/Footer.vue'
