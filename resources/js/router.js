@@ -10,6 +10,7 @@ import Category from './pages/Category.vue'
 import Aggregate from './pages/Aggregate.vue'
 import Privacy from './pages/Privacy.vue'
 import SystemError from './pages/errors/System.vue'
+import Forbidden from './pages/errors/Forbidden.vue'
 import NotFound from './pages/errors/NotFound.vue'
 
 import store from './store'
@@ -93,6 +94,10 @@ const routes = [
   {
     path: '/500',
     component: SystemError
+  },
+  {
+    path: '/403',
+    component: Forbidden
   },
   {
     path: '*',

@@ -33,6 +33,8 @@ export default {
       async handler (val) {
         if (val === INTERNAL_SERVER_ERROR) {
           this.$router.push('/500')
+        } else if (val === FORBIDDEN) {
+          this.$router.push('/403')
         } else if (val === UNAUTHORIZED) {
           await axios.get('/api/refresh-token')
           this.$store.commit('auth/setUser', null)
