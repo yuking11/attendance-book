@@ -20,6 +20,7 @@ $border_color: #999;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: $ct_gutter;
 
   .nav_item {
     min-width: 16px * 3;
@@ -41,7 +42,6 @@ $border_color: #999;
   }// .nav_link
 
   @include mq(sp, max, true) {
-    margin-bottom: $ct_gutter;
   }// @include mq(sp, max, true)
   @include mq(tab) {
   }// @include mq(tab)
