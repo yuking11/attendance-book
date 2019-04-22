@@ -40,7 +40,7 @@
         </template>
         <template v-else>
           <li class="gnav_item">
-            <RouterLink class="gnav_link" to="/login">
+            <RouterLink class="gnav_link" to="/login" @click.native="menuOff()">
               ログイン / 登録
             </RouterLink>
           </li>
