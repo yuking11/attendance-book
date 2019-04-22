@@ -73,16 +73,16 @@
                       >
                         <button
                           type="button"
-                          class=""
+                          class="c-status c-status-enabled"
                           v-if="isAttendance(member.statuses, calendar.id)"
                           @click="update(calendar.id, member.id, 0)"
-                        ><i class="fas fa-check-square"></i></button>
+                        ><span>出席</span></button>
                         <button
                           type="button"
-                          class=""
+                          class="c-status c-status-disabled"
                           v-else
                           @click="update(calendar.id, member.id, 1)"
-                        ><i class="far fa-square"></i></button>
+                        ><span>欠席</span></button>
                       </div>
                     </template>
                   </div>

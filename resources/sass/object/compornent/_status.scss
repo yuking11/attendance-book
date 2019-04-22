@@ -1,0 +1,61 @@
+//=====================================================
+//
+// Status Style
+//
+// =====================================================
+
+// status - default
+// ================================== //
+.c-status {
+
+  position: relative;
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5;
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    display: block;
+    box-sizing: border-box;
+  }// &::before, &::after
+  &::before {
+    left: 0;
+    background-color: $color_white;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid $color_orange_dark;
+  }// &::before;
+
+  span {
+    display: block;
+    overflow: hidden;
+    white-space:nowrap;
+    text-indent: 100%;
+  }// span
+
+  &-enabled {
+    &::before {
+      background-color: $color_orange_dark;
+    }// &::before;
+    &::after {
+      top: 4px;
+      left: 3px;
+      width: 1.125rem;
+      height: .675rem;
+      border-bottom: 4px solid #FFF;
+      border-left: 4px solid #FFF;
+      transform: rotate(-55deg);
+    }// &::after;
+  }// &-enabled
+
+  @include mq(sp, max, true) {
+  }// @include mq(sp, max, true)
+  @include mq(tab) {
+  }// @include mq(tab)
+  @include mq(pc) {
+  }// @include mq(pc)
+  @include mq(wide) {
+  }// @include mq(wide)
+}// .c-status
