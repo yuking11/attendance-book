@@ -58,7 +58,8 @@
         class="l-section"
         v-show="! isLoading"
       >
-        <h2 class="c-ttl-secondary">{{ res.start | formatDateJp }}〜{{ res.end | formatDateJp }}の集計結果</h2>
+        <h2 class="c-ttl-secondary u-mb5">{{ res.start | formatDateJp }}〜{{ res.end | formatDateJp }}の集計結果</h2>
+        <p class="u-mb1e">期間内のイベント回数：<span class="u-bold u-large u-red">{{ eventCount }}</span>回</p>
         <div id="aggregate" ref="aggregate">
           <table class="c-tbl c-tbl-aggr">
             <thead>
@@ -89,7 +90,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { OK } from '../util'
 import Loader from '../components/Loader.vue'
 import moment from 'moment'
@@ -120,6 +121,7 @@ export default {
         end: null
       },
       items: [],
+      eventCount: 0,
     }
   },
   computed: {
@@ -153,7 +155,8 @@ export default {
         return false
       }
 
-      this.items = RESPONSE.data
+      this.items = RESPONSE.data.member
+      this.eventCount = RESPONSE.data.eventCount
 
       this.isLoading = false
     },
@@ -168,7 +171,8 @@ export default {
       const RESPONSE = await this.$store.dispatch('member/aggregate', formData)
 
       if (this.apiStatus) {
-        this.items = RESPONSE.data
+        this.items = RESPONSE.data.member
+        this.eventCount = RESPONSE.data.eventCount
         this.res.start = this.search.start
         this.res.end = this.search.end
       }
