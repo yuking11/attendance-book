@@ -36,7 +36,11 @@ class AggregateController extends Controller
 
         $calendarIds = Calendar::whereBetween('date', [$start, $end])->get(['id'])->toArray();
 
-        return response($this->getMembers('asc', $calendarIds), 200);
+        return response()
+                ->json([
+                  'member' => $this->getMembers('asc', $calendarIds),
+                  'eventCount' => $this->countEvent($calendarIds),
+                ], 200);
     }
 
     /**
@@ -52,7 +56,11 @@ class AggregateController extends Controller
 
         $calendarIds = Calendar::whereBetween('date', [$start, $end])->get(['id'])->toArray();
 
-        return response($this->getMembers('asc', $calendarIds), 200);
+        return response()
+                ->json([
+                  'member' => $this->getMembers('asc', $calendarIds),
+                  'eventCount' => $this->countEvent($calendarIds),
+                ], 200);
     }
 
     /**
@@ -77,5 +85,28 @@ class AggregateController extends Controller
                     ->orderBy('sort', $sort)
                     ->orderBy('name', $sort)
                     ->get();
+    }
+
+    /**
+     * イベント回数カウント
+     *   いずれかのメンバーが出席した日をカウントする
+     * @param  Array|array
+     * @return Int
+     */
+    private function countEvent(Array $ids = [])
+    {
+        $user = Auth::user();
+        $relation = Auth::user()
+                    ->members()
+                    ->join('statuses', 'members.id', '=', 'statuses.member_id')
+                    ->join('calendars', function ($join) use ($ids) {
+                        $join
+                          ->on('calendars.id', '=', 'statuses.calendar_id')
+                          ->whereIn('calendar_id', $ids);
+                    })
+                    ->get();
+        return $relation
+                ->groupBy('calendar_id')
+                ->count();
     }
 }
