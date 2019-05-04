@@ -165,8 +165,8 @@ export default {
       this.clearMessage()
 
       const formData = new FormData()
-      formData.append('start', this.search.start)
-      formData.append('end', this.search.end)
+      formData.append('start', moment(this.search.start).format('YYYY-MM-DD'))
+      formData.append('end', moment(this.search.end).format('YYYY-MM-DD'))
 
       const RESPONSE = await this.$store.dispatch('member/aggregate', formData)
 
