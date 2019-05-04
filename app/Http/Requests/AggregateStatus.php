@@ -24,8 +24,8 @@ class AggregateStatus extends FormRequest
     public function rules()
     {
         return [
-            'start' => 'required|date',
-            'end' => 'date|after_or_equal:start',
+            'start' => 'required|date_format:Y-m-d',
+            'end' => 'date_format:Y-m-d|after_or_equal:start',
         ];
     }
 
@@ -51,8 +51,8 @@ class AggregateStatus extends FormRequest
     {
         return [
             'start.required' => ':attributeは入力必須です。',
-            'start.date' => ':attributeには有効な日付を指定してください。',
-            'end.date' => ':attributeには有効な日付を指定してください。',
+            'start.date_format' => 'YYYY-MM-DD形式で正しい日付を指定してください。',
+            'end.date_format' => 'YYYY-MM-DD形式で正しい日付を指定してください。',
             'end.after_or_equal' => ':attributeには、:date以降の日付を指定してください。',
         ];
     }
