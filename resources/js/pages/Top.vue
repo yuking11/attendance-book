@@ -37,9 +37,10 @@
             <div class="head_date">
               <div class="date_days">
                 <div
-                  class="day"
                   v-for="(calendar, index) in calendars"
-                  v-bind:class="classWeekday(calendar.date)"
+                  :key="index"
+                  :class="classWeekday(calendar.date)"
+                  class="day"
                 >
                   <div>{{ calendar.date | days }}</div>
                   <div>{{ calendar.date | weekdays }}</div>

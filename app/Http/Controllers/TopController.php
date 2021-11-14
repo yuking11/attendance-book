@@ -154,7 +154,7 @@ class TopController extends Controller
         $year = substr($id, 0, 4);
         $month = substr($id, 4, 2);
         $start = $year . '-' . $month . '-01';
-        $end = $year . '-' . $month . '-31';
+        $end = date('Y-m-d', strtotime('last day of ' . $year . '-' . $month));
 
         return Calendar::whereBetween('date', [$start, $end]);
     }
